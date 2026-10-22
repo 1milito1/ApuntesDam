@@ -1,0 +1,26 @@
+
+Task 3: deciphering code
+Requisitos de finalización
+Apertura: jueves, 3 de abril de 2025, 19:49
+A teammate of yours have encountered the following errors and has asked you to explain them to him/her. Record an audio providing the explanations you would give to your workmate.
+
+ERRORS to explain (you can search information using digital tools to understand them if you need it):
+
+SyntaxError: Unexpected token ‘}’
+ReferenceError: myVariable is not defined
+TypeError: Cannot read properties of undefined (reading 'length')
+IndexError: list index out of range (Python)
+NullPointerException (Java)
+EXAMPLES:
+
+SyntaxError: Missing parentheses in call to ‘print’ (Python)
+→ This often happens when using print "Hello" instead of print("Hello") in Python 3.
+
+FileNotFoundError: No such file or directory: 'data.txt'
+→ The program is trying to open a file that does not exist or is located in the wrong directory.
+
+EVALUATION CRITERIA:
+
+Clarity in the explanation
+Good pronunciation and fluency
+Grammar appropriacy

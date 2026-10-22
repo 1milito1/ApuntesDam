@@ -1,0 +1,10 @@
+//desarrollador/@lenguaje
+(: selecciona el atributo lenguaje de todos los elementos desarrollador :)
+//desarrollador[@id='DEV002'][frameworks/framework/@nombre='React']
+(: selecciona el desarrollador con id DEV002 y que usa el lenguaje React :)
+//desarrollador[contains(nombre, 'ici')]
+(: selecciona los desarrolladores cuyo nombre contiene ici (Alicia)  :)
+//desarrollador[experiencia/@años > 5]/frameworks/framework/@nombre
+(: selecciona el atributo nombre de los frameworks de los desarroladores con más de 5 años de experiencia :)
+//desarrollador[salario/text() > 3500 and experiencia/@años < 7]/nombre/text()
+(: selecciona el nombre de los desarrolladores que ganan más de 3500 y tienen menos de 7 años de expriencia :)

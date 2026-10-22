@@ -1,0 +1,49 @@
+CONTRATO DE LICENCIA: "PÁDEL PRO-SYNC"
+Versión 1.2 – 2026
+Este documento es un acuerdo legal entre usted (el "Licenciatario") y Pádel Pro-Sync Software S.L. (el "Licenciante"). Al instalar, copiar o utilizar este software de gestión de reservas, usted acepta los términos de esta licencia.
+1. Concesión de la Licencia
+El Licenciante otorga una licencia no exclusiva, limitada y no transferible para utilizar el software bajo las siguientes modalidades:
+•
+Gestión de Pistas: Registro de reservas, gestión de iluminación automática y control de accesos.
+•
+Base de Datos: Almacenamiento de perfiles de jugadores y niveles de juego (Nivel 1.0 a Pro).
+•
+Uso: Una sola instancia por centro deportivo físico, a menos que se adquiera el "Pack Multi-Club".
+2. Restricciones de Uso
+Para mantener el juego limpio, usted se compromete a no:
+1.
+Ingeniería Inversa: No intentar descubrir el código fuente (nos ha costado muchos cafés y palas rotas diseñarlo).
+2.
+Subarrendamiento: No puede alquilar el software a otros clubes sin autorización previa.
+3.
+Uso Malintencionado: Queda prohibido el uso del sistema para inflar artificialmente la disponibilidad de pistas o sabotear el ranking de jugadores.
+3. El "Factor de Fair Play"
+El Licenciatario reconoce que el software incluye un algoritmo de "Penalización por Abandono". Si un usuario cancela su reserva con menos de 2 horas de antelación más de tres veces al mes, el software tiene la potestad de aplicar un recargo automático según la configuración del club.
+4. Propiedad Intelectual
+Todos los derechos, títulos e intereses en el software (incluyendo la interfaz de usuario, los sonidos de "saque" y el código de gestión de cuotas) pertenecen exclusivamente a Pádel Pro-Sync Software S.L.
+5. Limitación de Responsabilidad
+El Licenciante no se hace responsable de:
+•
+Lesiones físicas sufridas en la pista.
+•
+Discusiones sobre si la bola tocó el cristal o la malla.
+•
+Pérdida de ingresos si el sistema de iluminación falla debido a una caída de internet externa.
+6. Tarifas y Mantenimiento
+Concepto
+Detalle
+Precio (Sugerido)
+Licencia Base
+Hasta 4 pistas
+49€ / mes
+Módulo Torneo
+Cuadros y eliminatorias
++15€ / mes
+Concepto
+Detalle
+Precio (Sugerido)
+Soporte VIP
+Respuesta en < 2 horas
+Incluido
+Aceptación de Términos:
+Al hacer clic en "Aceptar", usted confirma que ha leído este acuerdo y que está listo para llenar sus pistas. ¡Nos vemos en la red!

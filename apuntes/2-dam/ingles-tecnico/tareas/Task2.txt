@@ -1,0 +1,23 @@
+
+Task 2: Comprehension of main ideas in a technical text
+Requisitos de finalización
+Apertura: jueves, 3 de abril de 2025, 20:07
+In your workplace, you usually need to look for information on the Internet. At the beginning, it might be difficult for you to decide what the best site is when trying to find truthful and useful information. You will read an article about different sites which are well-known among programmers.
+
+Read the following article: https://dev.to/steal/top-programming-blogs-to-read-in-2024-3hf2
+Answer the following questions:
+- What do programming blogs help people with?
+
+- Which blog would you use to find tutorials on programming languages?
+
+- True or False: Hacker Noon is only for professionals. Give evidence for your answer.
+
+- Name one reason why FreeCodeCamp is helpful for beginners.
+
+- What does DEV Community offer to programmers?
+
+- Imagine you're a beginner. Which blog would you visit for help learning to code and why?
+
+- Which programming blog do you think is best for learning new tools and why?
+
+3. Upload your answers in .PDF format

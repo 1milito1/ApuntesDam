@@ -1,0 +1,4 @@
+Dependiendo de si el equipo es de 32 ó 64 bits:
+
+http://www.mediafire.com/file/c0zbwmi5j41xyeb/OracleXE112_Win32.zip/file
+http://www.mediafire.com/file/4bf57sudkdozgpd/OracleXE112_Win64.zip/file

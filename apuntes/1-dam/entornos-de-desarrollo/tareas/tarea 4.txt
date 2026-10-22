@@ -1,0 +1,69 @@
+El proyecto Java que se adjunta (DAW_ED04_Actividad.ZIP) contiene dos clases ya conocidas de la tarea de la unidad anterior:
+
+CCuenta.java: Contiene la clase Ccuenta formada por 4 atributos y varios métodos.
+
+Main.java: Contiene la clase Main que utiliza la clase Ccuenta.
+
+Una vez descargado, el proyecto se puede importar a Netbeans desde la opción del menú Archivo-> Import Project-> From ZIP
+
+ 
+
+Se pide aplicar en el proyecto las herramientas de Refactorización, control de versiones con GIT y javadoc.
+
+Los pasos deben realizarse de forma ordenada. Si alguno se omite, hay que indicarlo.
+
+Vamos a utilizar la herramienta GIT para registrar los cambios realizados en el proyecto.
+
+1.- Al abrir el proyecto en Netbeans crea un repositorio GIT para ese proyecto (Inicializar el Repositorio GIT)
+
+Realiza un COMMIT y como comentario del COMMIT indica "Primera versión del proyecto antes de refactorizar".
+
+REFACTORIZACIÓN
+
+2.- Cambiar el nombre de la variable "miCuenta" por "cuentaUno".
+
+3. - Introduce el método operacuenta , que englobe las sentencias de la clase Main (retirar e ingresar) que operan con el objeto cuentaUno.
+
+4.- Encapsula (métodos set y get) todos los atributos de la clase Ccuenta que no estén ya encapsulados.
+
+5.- Añade un parámetro al método operacuenta de nombre cantidad y de tipo float.
+
+GIT
+
+6.- Realiza un COMMIT y como comentario del COMMIT indica "Segunda versión. Refactorizado con método operacuenta y parámetro y encapsulada CCuenta".
+
+7.-Muestra el historial de versiones de Main, y el historial de versiones de Ccuenta. Coméntalos. ( 2 puntos)
+
+JAVADOC
+
+8.- Inserta comentarios Javadoc en la clase Ccuenta. Al menos deben incluir comentarios referentes a la versión, autor, fecha de realización, los métodos, y atributos de la clase Ccuenta.
+
+9.- Genera documentación Javadoc para todo el proyecto. Comprueba que la documentación generada con Javadoc abarca todos los métodos y atributos de la clase Ccuenta.
+
+ 
+
+Criterios de puntuación. Total 10 puntos.
+
+Se asignará un punto por cada apartado, y 2 puntos el apartado 7.
+
+Recursos necesarios para realizar la tarea.
+
+Ordenador con NetBeans instalado y un procesador textos.
+
+Indicaciones de entrega.
+
+Todos los ficheros generados en la realización de la tarea (control de versiones, javadoc…) deben ser guardados en la carpeta en la que está el proyecto.
+
+Se deberá entregar un documento comprimido conteniendo:
+
+El proyecto netbeans que se ha usado en el desarrollo de la tarea de manera que deben incluirse todos los ficheros que se hayan generado.
+Un documento donde figure, para cada punto, los pasos realizados y las capturas de pantalla correspondientes. Este documento debe estar realizado con un procesador de textos, preferiblemente Writer de LibreOffice o OpenOffice . Deberá llevar por nombre el del alumno/a en el formato apellido1_apellido2_nombre_Tarea4
+Si el profesor tiene alguna dificultadpara abrir el documento se podrá requerir al alumno/a que lo entregue en un formato determinado siendo responsabilidad del alumno/a la realización de la conversión.
+
+El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo comprimido se nombrará siguiendo las siguientes instrucciones:
+
+apellido1_apellido2_nombre_EEDD_Tarea_4
+
+El nombre no debe contener la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas, debería nombrar esta tarea como...
+
+sanchez_manas_begona_EEDD_Tarea_4

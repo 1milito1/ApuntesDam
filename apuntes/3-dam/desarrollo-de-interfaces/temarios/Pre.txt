@@ -1,0 +1,11 @@
+Mensaje Pre-Instalación
+Ventana: "Preparando el Match Point"
+¡Bienvenido a la familia Pádel Pro-Sync!
+Estamos a solo unos clics de profesionalizar tu club. Antes de comenzar, asegúrate de que tu equipo cumple con lo siguiente:
+•
+Conexión a Internet: Estable (para que el sistema de reservas no se quede en el "deuce").
+•
+Permisos de Administrador: Necesarios para configurar el control de luces y acceso.
+•
+Ganas de crecer: El software ocupará 150 MB de espacio, pero tus ingresos podrían ocupar mucho más.
+Nota Importante: Durante la instalación, se configurará la pasarela de pagos. Ten a mano los datos de tu entidad bancaria para que no se escape ni una reserva.

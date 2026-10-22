@@ -1,0 +1,146 @@
+{
+	"nombre": "InnovTech",
+    "sector": "IT",
+    "num_empleados": 50,
+    "sede_central": {
+        "ciudad": "Madrid",
+        "pais": "España"
+    },
+    "tecnologias_principales": ["Java", "JavaScript", "Python"],
+    "desarrolladores": [
+        {
+            "id": "DEV001",
+            "nombre": "Alicia",
+            "lenguaje": "Java",
+            "experiencia": 5,
+            "salario": 3500,
+            "es_senior": false,
+            "frameworks": ["Spring", "Hibernate"]
+        },
+        {
+            "id": "DEV002",
+            "nombre": "Roberto",
+            "lenguaje": "JavaScript",
+            "experiencia": 8,
+            "salario": 4200,
+            "es_senior": true,
+            "frameworks": ["React", "Node.js", "Angular"]
+        },
+        {
+            "id": "DEV003",
+            "nombre": "Laura",
+            "lenguaje": "Python",
+            "experiencia": 3,
+            "salario": 3000,
+            "es_senior": false,
+            "frameworks": ["Django", "Flask"]
+        },
+        {
+            "id": "DEV004",
+            "nombre": "Javier",
+            "lenguaje": "C#",
+            "experiencia": 6,
+            "salario": 3800,
+            "es_senior": true,
+            "frameworks": [".NET", "ASP.NET"]
+        },
+        {
+            "id": "DEV005",
+            "nombre": "Marta",
+            "lenguaje": "PHP",
+            "experiencia": 4,
+            "salario": 3200,
+            "es_senior": false,
+            "frameworks": ["Laravel", "Symfony"]
+        },
+        {
+            "id": "DEV006",
+            "nombre": "Carlos",
+            "lenguaje": "Swift",
+            "experiencia": 7,
+            "salario": 4500,
+            "es_senior": true,
+            "frameworks": ["SwiftUI", "UIKit"]
+        },
+        {
+            "id": "DEV007",
+            "nombre": "Sofía",
+            "lenguaje": "Kotlin",
+            "experiencia": 2,
+            "salario": 2800,
+            "es_senior": false,
+            "frameworks": ["Kotlin", "Ktor"]
+        },
+        {
+            "id": "DEV008",
+            "nombre": "David",
+            "lenguaje": "Go",
+            "experiencia": 5,
+            "salario": 3700,
+            "es_senior": false,
+            "frameworks": ["Go"]
+        },
+        {
+            "id": "DEV009",
+            "nombre": "Elena",
+            "lenguaje": "R",
+            "experiencia": 9,
+            "salario": 4800,
+            "es_senior": true,
+            "frameworks": ["R"]
+        },
+        {
+            "id": "DEV010",
+            "nombre": "Pablo",
+            "lenguaje": "Ruby",
+            "experiencia": 3,
+            "salario": 3100,
+            "es_senior": false,
+            "frameworks": ["Ruby on Rails"]
+        }
+    ],
+    "proyectos": [
+        {
+            "nombre": "E-commerce",
+            "estado": "En curso",
+            "tecnologias": ["React", "Node.js"]
+        },
+        {
+            "nombre": "App Móvil Social",
+            "estado": "Finalizado",
+            "tecnologias": ["Swift", "Firebase"]
+        },
+        {
+            "nombre": "Análisis de Datos",
+            "estado": "En curso",
+            "tecnologias": ["R", "Hadoop"]
+        },
+        {
+            "nombre": "API Rest",
+            "estado": "Planificado",
+            "tecnologias": ["Django", "PostgreSQL"]
+        }
+    ],
+    "departamentos": {
+        "web": {
+            "nombre": "Desarrollo Web",
+            "responsable": "Roberto",
+            "num_empleados": 4
+        },
+        "movil": {
+            "nombre": "Desarrollo Móvil",
+            "responsable": "Carlos",
+            "num_empleados": 3
+        },
+        "datos": {
+            "nombre": "Big Data",
+            "responsable": "Elena",
+            "num_empleados": 2
+        },
+        "backend": {
+            "nombre": "Desarrollo Backend",
+            "responsable": "Javier",
+            "num_empleados": 5
+        }
+    }
+}

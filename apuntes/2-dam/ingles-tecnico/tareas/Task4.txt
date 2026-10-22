@@ -1,0 +1,52 @@
+Task 4: an e-mail about a technical issue
+Requisitos de finalización
+Apertura: jueves, 3 de abril de 2025, 17:06
+The aim of this task is to learn how to report a technical problem via e-mail.
+
+Imagine you are working as a junior developer in a tech company. You encountered a technical problem while working on a project and need assistance from the IT support team or a senior developer. Write a professional e-mail explaining the issue and asking for help.
+
+STEPS:
+
+You have already learned the basics about writing e-mails. Now it is your turn to put that into practice.
+
+Choose a technical problem you might encounter in the workplace. It can be a bug in the system, a login issue, or an error in the database connection. You can choose whatever error you find familiar.
+Write the e-mail using the structure you have learned. Here you can find a summary:
+Subject line: summarize the problem
+Greeting: address your recipient politely (for example: Dear Support Team)
+Introduction: state the purpose of your e-mail (I am writing to you because...)
+Description of the problem: now it is the moment to include specific details about the error. You can include any error messages you received.
+Steps taken: mention what you have done to try and solve the problem.
+Request for assistance: ask for help in a clear way.
+Closing and signature: end the e-mail in a professional way as you have learned in your notes.
+EVALUATION CRITERIA:
+
+Adequacy to context and formality
+Use of language (professional and polite)
+Clarity and organization of the e-mail
+Grammar, spelling and punctuation 
+Description of the problem
+
+
+
+
+
+
+
+
+
+
+
+Example Email (Problem: Database Connection Error)
+
+Subject: Database Connection Error in Order Management System
+Greeting: Dear IT Support Team,
+Introduction: I am writing to you because I am encountering a persistent database connection error while working on the Order Management System and require your assistance.
+Description of the Problem: I am unable to connect to the database when attempting to process new orders. After entering the order details and clicking "Submit," the system displays the following error message: "Error: Could not connect to the database. Please check your network connection and try again. Connection refused." This issue started occurring this morning, and I have encountered it with every attempt to submit an order since then. The system was working correctly yesterday.
+Steps Taken: To try and resolve this, I have:
+Restarted my computer.
+Verified that my network connection is stable and that I can access other network resources.
+Checked the application's configuration files to ensure the database connection string is correct.
+Confirmed with a colleague that they are not experiencing the same issue.
+Request for Assistance: Could you please investigate this database connection error? I need to be able to process orders, so this is blocking my work. Please let me know if you require any further information from my end, such as log files or system specifications.
+Closing: Thank you for your time and attention to this matter.
+Signature: Emilio [Your Last Name] Junior Developer [Your Phone Number]

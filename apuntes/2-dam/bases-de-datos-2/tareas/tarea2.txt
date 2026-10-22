@@ -1,0 +1,84 @@
+Esta actividad NO PRETENDE ser un modelo ideal de diseño. SE HA CREADO PARA  FINES DIDÁCTICOS Y PODER UTILIZAR LOS CONCEPTOS TRABAJADOS EN LA UNIDAD sentencia create, declaración de atributos, claves…
+
+Vamos a suponer que se desea crear una base de datos para los productos humanitarios que llegan a distintas LOCALIDADES de Valencia y deben ser guardados en NAVES y éstas VIGILADAS por algún tipo de personal
+
+En esta base de datos, almacenaremos datos con tres tablas LOCALIDAD, NAVE y VIGILANTE.
+
+EJERCICIO 1
+El diseño de las tablas que se describen a continuación deben realizarse TAL Y COMO comento a continuación. Es para que practiques o pruebes aquello que habrás trabajado en los conceptos de esta unidad. Y porque así tendrán sentido las cuestiones planteadas en la segunda parte de la tarea.
+
+Sobre la tabla LOCALIDAD
+- Atributo COD_POSTAL. Cinco dígitos numéricos. De momento, no lo declares como clave primaria.
+- Atributo NOMBRE_LOCALIDAD. Veinte caracteres alfanuméricos.
+- Atributo NRO_NAVES. De dos dígitos numéricos. No podrá contener valor nulo (aunque sea cero si se desconoce el número de naves que va a prestar inicialmete). Recuerda que valor nulo es ausencia de dato.
+
+Tras la declaración de estos tres atributos, Y DENTRO DE LA SENTENCIA CREATE, declara una restricción para indicar que COD_POSTAL  es clave primaria.
+
+
+Sobre la tabla NAVE
+- Atributo COD_NAVE. Seis caracteres y debe declararse en la misma línea que es clave principal.
+- Atributo NOMBRE_NAVE. Quince  caracteres. Almacenará el nombre de la nave, apodo del propietario o lo que sea.
+- Atributo METROS. Cinco dígitos numéricos y dos para decimales. Almacenará el número de metros cuadrados que posee la nave.
+- LOCALIDAD_NAVE. Cinco caracteres alfanuméricos. Como la clave principal de la tabla anterior. Es decir, almacenará el código de la localidad a la que pertenece la nave.
+- Atributos FECHA_INICIO y FECHA_FIN. Almacenarán las fechas de inicio y última en las la nave está cedida a la organización que gestiona la recepción y reparto de productos recibidos.
+-CAM_REFRI. Diecisiete caracteres alfanuméricos. En la segunda parte de la tarea describiremos los posibles valores que almacenará.
+
+Dentro de la sentencia CREATE se añadirán estas dos restricciones
+
+- Primera restricción. Deberás declarar que LOCALIDAD_NAVE es clave ajena. Pues referenciará en la tabla LOCALIDAD la clave principal.
+- Segunda restricción. Deberás asegurarte que la FECHA_FIN es siempre mayor a FECHA_INICIO. De lo contrario estos datos no tendrían sentido.
+
+
+Sobre la tabla VIGILANTE
+-Atributo NIF . Nueve caracteres alfanuméricos. Declara en la misma línea que es clave principal.
+-Atributo NOMBRE. Treinta caracteres alfanuméricos.
+-Atributo TEL_CONTACTO. Número de nueve dígitos.
+-Atributo SEXO. Un carácter. Después, mediante restricción estableceremos posibles valores.
+-Atributo NAVE_VIGILAR. Seis caracteres alfanuméricos. Debes declarar, en la misma línea que es clave ajena. Referenciará en la tabla NAVE el código de la NAVE donde trabajará.
+
+Antes de cerrar la sentencia CREATE y tras la declaración de los atributos anteriores, crea una restricción para que el atributo  SEXO sólo pueda almacenar ‘H’ o ‘M’ (es decir, hombre o mujer). Haz uso del operador IN.
+
+
+EJERCICIO2
+
+1 Crea un nuevo atributo llamado EDAD de tipo numérico (dos dígitos) en la tabla VIGILANTE.
+
+2 Modifica el campo que has creado anteriormente para que el EDAD del VIGILANTE  esté comprendida entre 18 y 60 años MEDIANTE UNA RESTRICCIÓN.
+
+3. Modifica el campo CAM_REFRI (de la tabla NAVE ) para que sólo puedan existir tres tipos de cámaras VERDURAS Y FRUTAS”, CARNES Y PESCADOS o CONGELACIÓN.
+
+4. Queremos asegurarnos que cuando se dé de alta una NAVE el número de metros cuadrados (METROS) es correcto. Hay que asegurarse que la cantidad de metros es siempre igual o superior a 100 metros cuadrados.
+
+5. Finalmente, se decide que la RESTRICCIÓN de SEXO debe eliminarse.
+
+6. Cambia la clave primaria de la tabla LOCALIDAD por el atributo que almacena el propio nombre (NOMBRE_LOCALIDAD). No tiene sentido al ser un dato de mayor longitud pero válido al ser un atributo con valor único en cada tupla. Recuerda que el ejercicio sólo tiene un fin didáctico.
+
+PISTAS
+
+    1) Primero debes eliminar la restricción de clave primaria.
+
+    2) Después, podrás poner la nueva restricción.
+
+7. Elimina el atributo CODIGO_POSTAL  de la tabla LOCALIDAD (no se utilizará más). Y también, LOCALIDAD_NAVE de la tabla NAVE que actuaba como clave ajena. Recuerda lo del fin didáctico de la tarea.
+
+8. Define en la tabla NAVE, de nuevo el atributo LOCALIDAD_NAVE (trata de imaginar el tipo y longitud) para que  de nuevo sea clave ajena y pueda referencial en la tabla LOCALIDAD el nombre de la localidad (NOMBRE_LOCALIDAD)
+
+9. Renombra la tabla VIGILANTE por RESPONSABLE.
+
+10. Elimina la tabla RESPONSABLE. Se va a reestructurar la tabla.
+ 
+Criterios de puntuación. Total 10 puntos.
+Ejercicio 1 6 puntos
+•	Cada una de las tres tablas 2 puntos.
+Ejercicio 2 4 puntos
+•	Cada apartado 0,4 puntos.
+Recursos necesarios para realizar la Tarea.
+Aunque no es estrictamente necesario tener instalada la aplicación Oracle XE, sí te resultará útil para poder comprobar tus resultados.
+Consejos y recomendaciones.
+A medida que vayas ejecutando CORRECTAMENTE los códigos, ve pegándolos en un documento TXT (bloc de notas). Es el mejor formato para entregar la tarea. Si se utiliza algún procesador de textos como  Word, OpenOffice, etc. se corre el riesgo de que algunas palabras se corrijan y a la hora de probar vuestros códigos no se ejecuten al generar errores dentro de Oracle.
+Indicaciones de entrega.
+Una vez realizada la tarea elaborarás un único documento donde figuren las respuestas correspondientes. El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes pautas
+apellido1_apellido2_nombre_BDxx_Tarea_entrega_#
+Asegúrate que el nombre no contenga la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas para la segunda unidad del MP de BD, debería nombrar esta tarea como...
+sanchez_manas_begona_BD02_Tarea
+

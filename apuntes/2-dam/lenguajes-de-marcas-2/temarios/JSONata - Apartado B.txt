@@ -1,0 +1,9 @@
+{
+  "PersonalDesarrollador": desarrolladores.{
+    "Identificador": id,
+    "NombreCompleto": nombre,
+    "LenguajePrimario": lenguaje,
+    "AñosDeExperiencia": experiencia,
+    "EsDesarrolladorSenior": es_senior
+  }
+}

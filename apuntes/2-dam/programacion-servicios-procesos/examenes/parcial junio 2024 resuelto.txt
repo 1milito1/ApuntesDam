@@ -1,0 +1,275 @@
+Desarrollar un servidor HTTP multihilo en Java que permita q un cliente solicitar la creación de una credencial única. el servidor debe genera un código aleatorio para la credencial y proporcionar al cliente una URL única para acceder al valor de esta credencial. La URL debe tener una ruta final generada aleatoriamente.
+Existen dos formas de obtener la URL que da acceso a la credencial:
+- Opción 1: a través de una solicitud GET usando un navegador web y la ruta /crear.
+- Opción 2: a través de la conexión de un Cliente.
+
+el programa a continuación debe funcionar de la siguiente manera para ambas opciones:
+
+- Generar un código aleatorio de 10 caracteres como valor de la credencia.
+- Generar una ruta aleatoria de 5 caracteres que formará parte de la URL única para acceder a la credencial.
+- Responder al cliente con la URL completa (por ejemplo, http://localhost:8081/abc12)
+- /rutaGenerada: cuando el servidor recibe una solicitud GET en una ruta generada aleatoriamente debe:
+	- Verificar si la ruta existe en el mapa de credenciales.
+	- si existe, responder con el valor de esa credencial
+	- si no existe, responder con un mensaje de error 404 indicando que la página no se encontró.
+
+Requisitos:
+1. Puerto de escucha: el servidor debe escuchar el puerto 8081
+2. Si se conecta un cliente al Servidor, se le proporciona a dicho cliente la rutaGenerada para que pueda acceder a la credencial.
+3. concurrencia: el servidor debe ser capaz de manejar múltiples solicitudes simultáneamente.
+
+Ejemplo de comportamiento esperado:
+1. Se envia una solicitud Get a http://localhost:8081/crear
+2. El servidor genera una credencia y una URL, por ejemplo, http://localhost:8081/abc12, y la envia al cliente.
+3. el cliente muestra la URL y envia una soolicitud GET a http://localhost:8081/abc12
+4. el servidor responde con el valor de la credencial.
+5. si se accede a una ruta no válida, el servidor repsonde con un mensaje de error 404.
+
+graficamente se muestra un ejemplo de las dos opciones:
+Opcion 1:
+ navegador : localhost:8081/crear -----> http://localhost:8081/j73IS ----> credencial mmdKNpGK8pW
+
+Opción 2:
+ Consola-cliente; HTTP/1.1 200 OK
+Content-Type:text/html;charset=UTF-8
+Content-Length: 28 
+http://localhost:8081/91hVG 
+entramos en esa URL y muestra Credencial:sXwh3nnh4o
+
+
+
+criterios de clsificación:
+- El servidor escucha correctamente en el puerto 8081 (1punto)
+-el servidor maneja múltiples conexiones concurrentemente utilizando hilos (1,5 puntos)
+- el servidor responde con una URL válida que contiene la ruta genreada aleatoriamente (1,25 puntos)
+- el servidor responede correctamente con el valor de la credencial cuando se accede a la URL (1 punto)
+- El servidor responden correctamente con un mensaje de error cuando no se accede a una ruta permitida (0,75 puntos)
+- el cliente envía correctamente una solicitid GET a la ruta /crear del servidor (1 punto)
+- el cliente recibe y muestra  la URL proporcionada por el servidor (1,25 puntos)
+- el cliente envía correctamente una solicitud GET a la URL recibida y muestra el valor de la credencial (1 punto)
+- el código está bien estructurado y sigue buenas prácticas de programación (0,5 puntos)
+- el código es claro y fácil de seguir, con un uso adecuado de nombres de variables y métodos (0,25 puntos)
+- el código está adecuadamente comentdado, explicando qué hace cada clase y método (0,25 puntos)
+- se utiliza un ficher de registro para guardar las credenciales que se producen (0,25 puntos)
+
+
+SOLUCION::::
+
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+/**
+ * ServidorHTTP multihilo que escucha en el puerto 8081 y responde a solicitudes GET.
+ * Puede responder tanto a navegadores web como a clientes de consola.
+ * Gestiona credenciales únicas a través de rutas aleatorias.
+ */
+public class ServidorHTTP {
+
+    // Mapa compartido que guarda las rutas aleatorias y sus credenciales
+    private static ConcurrentHashMap<String, String> mapaCredenciales = new ConcurrentHashMap<>();
+
+    // Logger para registrar las credenciales en un archivo
+    private static final Logger logger = Logger.getLogger("RegistroCredenciales");
+
+    public static void main(String[] args) {
+        try {
+            // Configura el logger para escribir en un archivo
+            FileHandler fileHandler = new FileHandler("credenciales.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+
+            // Crea el servidor en el puerto 8081
+            ServerSocket serverSocket = new ServerSocket(8081);
+            System.out.println("Servidor HTTP escuchando en el puerto 8081");
+
+            // Acepta conexiones infinitamente
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.println("Cliente conectado desde: " + socket.getInetAddress());
+
+                // Lanza un hilo nuevo por cada cliente que se conecta
+                new Thread(new ManejadorCliente(socket, mapaCredenciales, logger)).start();
+            }
+        } catch (IOException e) {
+            System.err.println("Error al iniciar el servidor: " + e.getMessage());
+        }
+    }
+}
+
+
+
+import java.io.*;
+import java.net.Socket;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
+
+/**
+ * Maneja la conexión con un cliente.
+ * Procesa la solicitud GET y responde con credenciales o errores.
+ */
+public class ManejadorCliente implements Runnable {
+
+    private Socket socket;
+    private ConcurrentHashMap<String, String> mapa;
+    private Logger logger;
+
+    public ManejadorCliente(Socket socket, ConcurrentHashMap<String, String> mapa, Logger logger) {
+        this.socket = socket;
+        this.mapa = mapa;
+        this.logger = logger;
+    }
+
+    @Override
+    public void run() {
+        try (
+            // Flujo de entrada del cliente (lee la solicitud HTTP)
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            // Flujo de salida hacia el cliente (envía la respuesta HTTP)
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        ) {
+            String requestLine = in.readLine();
+            if (requestLine == null || !requestLine.startsWith("GET")) return;
+
+            System.out.println("Petición recibida: " + requestLine);
+
+            String ruta = requestLine.split(" ")[1]; // obtiene la ruta después de GET
+
+            if (ruta.equals("/crear")) {
+                // Genera credencial y ruta
+                String credencial = generarCodigo(10);
+                String rutaGenerada = generarCodigo(5);
+                mapa.put(rutaGenerada, credencial);
+
+                logger.info("Ruta: " + rutaGenerada + ", Credencial: " + credencial);
+
+                // Construye la URL completa
+                String url = "http://localhost:8081/" + rutaGenerada;
+
+                // Envía cabecera y cuerpo al cliente
+                String respuesta =
+                        "HTTP/1.1 200 OK\r\n" +
+                        "Content-Type: text/html; charset=UTF-8\r\n" +
+                        "Content-Length: " + url.length() + "\r\n" +
+                        "\r\n" +
+                        url;
+
+                out.write(respuesta);
+                out.flush();
+            } else {
+                String rutaLimpia = ruta.substring(1); // elimina la barra inicial
+                if (mapa.containsKey(rutaLimpia)) {
+                    String valor = mapa.get(rutaLimpia);
+
+                    String cuerpo = "Credencial: " + valor;
+                    String respuesta =
+                            "HTTP/1.1 200 OK\r\n" +
+                            "Content-Type: text/html; charset=UTF-8\r\n" +
+                            "Content-Length: " + cuerpo.length() + "\r\n" +
+                            "\r\n" +
+                            cuerpo;
+
+                    out.write(respuesta);
+                    out.flush();
+                } else {
+                    // Si la ruta no existe, devuelve 404
+                    String mensaje = "404 Not Found";
+                    String respuesta =
+                            "HTTP/1.1 404 Not Found\r\n" +
+                            "Content-Type: text/html; charset=UTF-8\r\n" +
+                            "Content-Length: " + mensaje.length() + "\r\n" +
+                            "\r\n" +
+                            mensaje;
+
+                    out.write(respuesta);
+                    out.flush();
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error con cliente: " + e.getMessage());
+        }
+    }
+
+    // Genera una cadena aleatoria de letras y números
+    private String generarCodigo(int longitud) {
+        String caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < longitud; i++) {
+            sb.append(caracteres.charAt(random.nextInt(caracteres.length())));
+        }
+        return sb.toString();
+    }
+}
+
+
+
+Cliente en consola (opcion 2)
+
+import java.io.*;
+import java.net.Socket;
+
+/**
+ * Cliente en consola que solicita la creación de una credencial al servidor.
+ * Luego accede a la URL proporcionada para obtener el valor de la credencial.
+ */
+public class ClienteHTTP {
+    public static void main(String[] args) {
+        try (
+            // Conexión al servidor
+            Socket socket = new Socket("localhost", 8081);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        ) {
+            // Solicita la creación de una credencial
+            out.write("GET /crear HTTP/1.1\r\n");
+            out.write("Host: localhost\r\n");
+            out.write("\r\n");
+            out.flush();
+
+            String line;
+            String url = null;
+            while ((line = in.readLine()) != null) {
+                if (line.startsWith("http")) {
+                    url = line.trim();
+                    break;
+                }
+            }
+
+            if (url != null) {
+                System.out.println("URL recibida: " + url);
+
+                // Extrae la ruta generada de la URL
+                String ruta = url.substring(url.lastIndexOf("/"));
+
+                // Segunda solicitud para obtener la credencial
+                try (
+                    Socket socket2 = new Socket("localhost", 8081);
+                    BufferedWriter out2 = new BufferedWriter(new OutputStreamWriter(socket2.getOutputStream()));
+                    BufferedReader in2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
+                ) {
+                    out2.write("GET " + ruta + " HTTP/1.1\r\n");
+                    out2.write("Host: localhost\r\n");
+                    out2.write("\r\n");
+                    out2.flush();
+
+                    while ((line = in2.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                }
+
+            } else {
+                System.out.println("No se recibió una URL válida.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

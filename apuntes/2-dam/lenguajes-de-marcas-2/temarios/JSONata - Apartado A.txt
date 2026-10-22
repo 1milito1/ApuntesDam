@@ -1,0 +1,34 @@
+1.  Mostrar el nombre de cada desarrollador junto con la etiqueta "(Senior)" si tiene 5 o más años de experiencia, o "(Junior)" en caso contrario.
+
+desarrolladores.{
+    "nombre": nombre,
+    "categoria": experiencia >= 5 ? "Senior" : "Junior"
+}
+
+2. Encontrar todos los desarrolladores cuyo nombre empiece por la letra "A" o "L".
+
+desarrolladores[$match(nombre, /^A|^L/i)]
+
+
+3. ordena los desarrolladores de forma aascendente (de menor a mayor) por experiencia
+
+$sort(desarrolladores, function($l, $r) {
+  $l.experiencia >= $r.experiencia
+}).(nombre & "(" & experiencia & "años)")
+
+4. muestra los desarrolladores que tengan 3 frameworks
+
+desarrolladores[$reduce(frameworks, function($acc, $framework) {
+    $acc + 1
+}, 0) >= 3].nombre
+
+5. Calcular el salario anual de cada desarrollador y mostrar su nombre, salario mensual y el salario anual calculado. El cálculo del salario anual implica multiplicar el salario mensual por 12.
+
+(
+    $calculaAnual := function($salarioMensual) { $salarioMensual * 12 };
+    desarrolladores.{
+        "nombre": nombre,
+        "salario_mensual": salario,
+        "salario_anual": $calculaAnual(salario)
+    }
+)

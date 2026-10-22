@@ -1,0 +1,34 @@
+Imagine you've just joined a tech company and you're collaborating with your classmates as if they were your colleagues. This forum is your space to introduce yourself, discuss your role, and collaborate on a project!
+
+Instructions:
+
+In order to do this task, first look at the notes on the platform. Then, you are expected to make at least 3 interventions:
+
+1. First post: self-introduction. 👤Introduce yourself as if you had just joined a tech company.
+
+Use what you have already learned during the course to present yourself to your colleagues
+State your name and role (e.g.: software developer, UI/UX designer, project manager).
+Share a brief background (experience, studies, interests related to tech).
+Mention your strengths and what you can contribute to the team.
+End with a question to encourage replies and show interest for your workmates (e.g.: What's your area of expertise?).
+Example: Hello everyone. My name is Anne and I have just joined this company as a junior mobile developer. I have recently completed my degree in Computer science, and I am passionate about building Android applications. My strengths are debugging and UI design. I'm excited to collaborate with you all! What programming languages do you use the most?
+
+2. Second post: reply a teammate and discuss a work task. 💬Read one of your classmates' introductions and reply as a colleague. 
+
+Acknowledge their post and highlight a shared interest or skill.
+Suggest a collaboration (e.g.: We could work together on a project).
+Ask a follow-up question to keep the conversation going.
+Example: Hi Lucas! Nice to meet you. I also enjoy UI design, especially for iOS apps. Maybe we could compare design trends for both operating systems? Do you have experience with Figma or Sketch?
+
+3. Third post: discuss a common work challenge. 🔍 Imagine your team is facing a challenge at work, and share your approach to solving it.
+
+Describe a common issue in the IT industry (e.g.: time management, miscommunication, problems with debugging).
+Suggest a possible solution.
+Ask for input from others on how they would handle the situation.
+Example: Our team is working on a project, and we’re struggling with version control. Some teammates keep overwriting each other’s work. I think we should use Git more effectively and maybe set clear commit guidelines. Have you faced this issue before? How do you manage it?
+
+💡TIPS:
+
+Be clear, professional and respectful
+Respond to different classmates
+Try to imagine you are in this situation in order to get hands-on practice on a real-world setting.

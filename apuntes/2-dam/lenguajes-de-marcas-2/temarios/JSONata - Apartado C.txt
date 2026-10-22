@@ -1,0 +1,1 @@
+"<html><body><h1>Lista de Desarrolladores</h1><ul>" & desarrolladores.("<li>Nombre: " & nombre & ", Lenguaje: " & lenguaje & "</li>").$join('') & "</ul></body></html>"

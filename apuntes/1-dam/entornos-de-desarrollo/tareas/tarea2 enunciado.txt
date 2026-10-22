@@ -1,0 +1,68 @@
+La empresa BK ha recibido un nuevo encargo de software. En este caso el desarrollo debe realizarse en java usando un IDE que sea software libre y se ha elegido NetBeans instalado sobre un sistema operativo Windows.
+Nota: Si prefiere realizar la tarea sobre otro sistema operativo distinto a Windows se puede hacer sin problema.
+
+Una vez planteado el análisis de requerimientos y el diseño de la aplicación (tal y como hicimos en la unidad anterior), se requiere tener un buen entorno para el diseño y ejecución de los programas. Para ello, tendrá que instalar y configurar el entorno NetBeans, y añadir algunas funcionalidades extra mediante los plugins y los módulos que le hagan falta.
+Realice capturas de pantalla de los pasos realizados en cada punto e inclúyalas en un documento de texto, junto a una breve explicación de cada proceso, para enviarlo como resultado de esta tarea.
+
+Se pide:
+1. Instale el Kit de Desarrollo de Java (JDK) y NetBeans bajo Windows. (2puntos). Si ya lo tiene instalado indíquelo y pase al siguiente punto.
+Nota: recuerde que ha sido incluido un tutorial de instalación como anexo de este tema.
+
+2. Cree un nuevo proyecto, que será una aplicación de Java, cuyo nombre sea Tarea.(1 punto)
+
+3. Los ficheros de este proyecto se deben almacenar en una carpeta llamada CarpetaTarea que debe estar en el escritorio. (1 punto)
+
+4. Personalice la configuración del IDE para ese proyecto , creando una configuración nueva, llamada personalizada y configúrelo para que los errores aparezcan con el fondo en color amarillo. (1 punto)
+
+5. Instalar plugins (3 puntos) :
+a. De forma off-line, instale el que quiera. Lo puede descargar de https://plugins.netbeans.apache.org/
+b. De forma online, instale el que quiera. Haga una breve descripción de cúal es su finalidad y muestre alguna pantalla, opción,... del IDE en la que se pueda ver que está instalado y activo.
+https://www.youtube.com/watch?v=jmLMDbYi9gQ
+
+6. Copie el siguiente código en la ventana de navegación (2 puntos):
+
+public class Main
+extends JFrame {
+   public Main() {
+          JLabel lblSaludo = new JLabel("Hola Mundo. Creando mi primer ejemplo");
+          add(lblSaludo);
+          this.setSize(400,200);
+          this.setTitle("JFrame");
+          this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          this.setVisible(true);
+}
+public static void main(String[] args) {
+       Main main = new Main();
+}
+}
+
+  A tener en cuenta:
+   a. Precaución con las comillas "" (si copias y pegas en el editor, ten cuidado de que no estén curvadas).
+   b. Compile el programa y corrija los errores sintácticos ayudándote de las sugerencias que te recomiendan incluir las librerías necesarias.
+   c. Realice la depuración y posterior ejecución del programa.
+
+
+
+Especificaciones de entrega
+La forma de verificar la correcta realización de las tareas es presentando en un documento capturas de pantallas para cada uno de los apartados en las que se
+vean las opciones elegidas y operaciones realizadas.
+Las cuestiones deben ser respondidas en el orden en el que están planteadas.
+Si no se proporciona respuesta para alguna de las cuestiones se indicará en el documento.
+El documento respuesta debe tener un formato que sea editable con el procesador de textos LibreOffice (.odt) o Microsoft Word (.docx o .doc)
+
+Criterios de puntuación
+Los indicados en cada apartado.
+Recursos necesarios para realizar la tarea
+Ordenador con procesador de textos (debe tener el paquete LibreOffice o
+Microsoft Word instalado), a su vez, debes instalar NetBeans.
+También necesitarás conexión a internet para enviar la propuesta de solución, así como para la instalación de algunos plugins.
+
+Indicaciones de entrega
+Una vez realizada la tarea se elaborará un único documento donde figuren las respuestas.
+El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes instrucciones:
+apellido1_apellido2_nombre_EDxx_Tarea
+
+El nombre no debe contener la letra ñ, tildes ni caracteres especiales extraños.
+Así por ejemplo la alumna Begoña Sánchez Mañas para la segunda unidad del
+MP de ED, debería nombrar esta tarea como...
+sanchez_manas_begona_ED02_Tarea

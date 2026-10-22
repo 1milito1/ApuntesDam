@@ -1,0 +1,170 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Properties;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author milio
+ */
+public class Servidor {
+
+    /**
+     * @param args the command line arguments
+     */
+
+    private static double tempMin;
+    private static double tempMax;
+    private static final int PORT = 12345;
+    private static final String config = "config.properties";
+    private static final Queue<Socket> clientQueue = new ConcurrentLinkedQueue<>();
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+        cargarConfig();
+        monitorConfig();
+
+        System.out.println("Servidor iniciado, esperando conexiones...");
+        new Thread(Servidor::procesarClientes).start();
+
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Nuevo cliente conectado desde " + clientSocket.getInetAddress().getHostAddress());
+                clientQueue.add(clientSocket);
+
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error en el servidor: " + e.getMessage());
+        }
+
+    }
+
+    private static void cargarConfig() {
+        try (FileInputStream fis = new FileInputStream(config)) {
+            Properties properties = new Properties();
+            properties.load(fis);
+            tempMin = Double.parseDouble(properties.getProperty("temp_min"));
+            tempMax = Double.parseDouble(properties.getProperty("temp_max"));
+            System.out.println("Configuración cargada: temp_min= " + tempMin + ", temp_max= " + tempMax);
+
+        } catch (IOException e) {
+            System.err.println("Error al cargar la configuración: " + e.getMessage());
+        }
+    }
+
+    private static void monitorConfig() {
+        new Thread(() -> {
+            try {
+                WatchService watchService = FileSystems.getDefault().newWatchService();
+
+                Path configPath = Paths.get(config).getParent();
+                if (configPath == null) {
+                    configPath = Paths.get(".").toAbsolutePath();
+                }
+                configPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+                while (true) {
+                    WatchKey key;
+                    try {
+                        key = watchService.take(); // Este método lanza InterruptedException
+                    } catch (InterruptedException e) {
+                        System.err.println("Hilo de monitorización interrumpido: " + e.getMessage());
+                        break; // Salir del bucle si ocurre una interrupción
+                    }
+                    for (WatchEvent<?> event : key.pollEvents()) {
+
+                        if (event.context().toString().equals(config)) {
+                            System.out.println("Archivo de configuración modificado. Recargando...");
+                            cargarConfig();
+                        }
+                    }
+                    key.reset();
+                }
+            } catch (IOException e) {
+                System.err.println("Error al monitorear el archivo de configuración: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    private static void handleClient(Socket clientSocket) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            String direccionCliente = clientSocket.getInetAddress().getHostAddress();
+            System.out.println("Cliente conectado desde " + direccionCliente);
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                double temperatura = Double.parseDouble(inputLine);
+                String redondeo = String.format("%.2f", temperatura);
+
+                System.out.println("Recibida temperatura " + redondeo + " C de " + direccionCliente);
+
+                if (temperatura < tempMin || temperatura > tempMax) {
+                    out.println("Alerta: temperatura fuera de rango: " + redondeo + " C ");
+                    guardarAlerta(direccionCliente, redondeo);
+
+                } else {
+                    out.println("Temperatura aceptada: " + redondeo + " C");
+                }
+
+            }
+        } catch (IOException | NumberFormatException e) {
+            System.err.println("Error con el cliente: " + e.getMessage());
+
+        }
+    }
+
+    private static void guardarAlerta(String ipCliente, String redondeo) {
+
+        try (FileWriter writer = new FileWriter("alertas.log", true)) {
+            String fechaHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+            String alerta = String.format("%s - Alerta: IP=%s, Temperatura=%s C\n", fechaHora, ipCliente, redondeo);
+
+            writer.write(alerta);
+            System.out.println("Alerta guardada: " + alerta);
+
+        } catch (IOException e) {
+            System.err.println("Error al guardar la alerta: " + e.getMessage());
+        }
+    }
+
+    private static void procesarClientes() {
+        while (true) {
+            Socket clienSocket = clientQueue.poll();
+            if (clienSocket != null) {
+                new Thread(() -> handleClient(clienSocket)).start();
+            } else {
+                try {
+                    Thread.sleep(100);
+
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.err.println("hilo procesador interrumpido");
+                }
+            }
+
+        }
+    }
+}

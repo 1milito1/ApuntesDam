@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tarea05listadeusuarios;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Usuarios {
+    private final List<Alumno> listaAlumnos;
+
+    public Usuarios() {
+        this.listaAlumnos = new ArrayList<>();
+    }
+
+    public void añadirUsuario() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Introduzca el NIF del alumno: ");
+        String nif = scanner.nextLine();
+
+        System.out.print("Introduzca el nombre del alumno: ");
+        String nombre = scanner.nextLine();
+        
+
+        System.out.print("Introduzca el primer apellido del alumno: ");
+        String apellido1 = scanner.nextLine();
+
+        System.out.print("Introduzca el segundo apellido del alumno: ");
+        String apellido2 = scanner.nextLine();
+
+       
+         try {
+            Alumno newAlumno = new Alumno(nif, nombre, apellido1, apellido2, "");
+
+            if (!listaAlumnos.contains(newAlumno)) {
+                listaAlumnos.add(newAlumno);
+                newAlumno.crearUsuario();
+                System.out.println("Alumno añadido correctamente.");
+            } else {
+                System.out.println("Ya existe un alumno con ese NIF.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void generarUsuario() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Introduzca el NIF del alumno: ");
+    String nif = scanner.nextLine();
+
+    try {
+        Alumno alumno = null;
+        for (Alumno a : listaAlumnos) {
+            if (a.getNif().equals(nif)) {
+                alumno = a;
+                break;
+            }
+        }
+
+        if (alumno != null) {
+            System.out.print("Introduzca el nuevo nombre del alumno: ");
+            String newNombre = scanner.nextLine();
+            alumno.setNombre(newNombre);
+
+            System.out.print("Introduzca el nuevo primer apellido del alumno: ");
+            String newApellido1 = scanner.nextLine();
+            alumno.setApellido1(newApellido1);
+
+            System.out.print("Introduzca el nuevo segundo apellido del alumno: ");
+            String newApellido2 = scanner.nextLine();
+            alumno.setApellido2(newApellido2);
+
+            alumno.crearUsuario();
+            System.out.println("Alumno modificado correctamente.");
+        } else {
+            System.out.println("No se encontró ningún alumno con ese NIF.");
+        }
+    } catch (IllegalArgumentException e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+}
+
+    public void mostrarUsuarios() {
+        listaAlumnos.forEach((alumno) -> {
+            System.out.println(alumno.toString());
+        });
+    }
+
+    public static void main(String[] args) {
+        Usuarios usuarios = new Usuarios();
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            int option;
+            
+            do {
+                System.out.println("\nSeleccione una opción:");
+                System.out.println("1. Añadir alumno");
+                System.out.println("2. Generar usuario");
+                System.out.println("3. Mostrar alumnos");
+                System.out.println("4. Salir");
+                System.out.print("Opción: ");
+                option = scanner.nextInt();
+                
+                switch (option) {
+                    case 1:
+                        usuarios.añadirUsuario();
+                        break;
+                    case 2:
+                        usuarios.generarUsuario();
+                        break;
+                    case 3:
+                        usuarios.mostrarUsuarios();
+                        break;
+                    case 4:
+                        System.out.println("¡Hasta luego!");
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+                
+            } while (option != 4);
+        }
+    }
+}

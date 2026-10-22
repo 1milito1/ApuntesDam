@@ -1,0 +1,72 @@
+Este supuesto sólo tiene un fin didáctico. Sólo se redacta para practicar los conceptos estudiados en la unidad. 
+
+
+Se desea diseñar una base de datos para controlar el voluntariado que presta sus servicios en una zona de España donde se ha producido un desastre  natural. Como la sucedida por la DANA en Valencia.
+
+
+•    De los VOLUNTARIOS interesará almacenar el DNI (que se utilizará como clave principal), el nombre y el teléfono
+•    De los VEHÍCULOS que serán propiedad de los voluntarios, sólo interesará guardar la matrícula (que se utilizará como clave), la marca y el modelo.
+•    Los vehículos ocupan un APARCAMIENTO . De estos aparcamientos se guardará el número de aparcamiento (clave) y los metros cuadrados del mismo.
+•    Los voluntarios sí pueden tener asignado más de un aparcamiento. Esto sucederá cuando el voluntario aporte más de un vehículo para trabajar en esta actividad de socorro o ayuda.
+•    Los aparcamientos están en varios MUNICIPIOS (los afectados por la tragedia). De estos municipios se guardará el código postal (que actuará como clave) y el nombre del municipio.
+•    Para evitar el deterioro de los vehículos se contratarán VIGILANTES. De estos vigilantes sólo se guardará su DNI (clave), nombre, y teléfono de contacto.
+
+Otros datos a tener en cuenta para completar el diagrama (cardinalidades y correspondencias):
+•    Los voluntarios se inscriben porque aporta un vehículo (mínimo) o más de uno.
+•    Los vehículos, lógicamente, pertenecen a un voluntario y sólo uno.
+
+•    Los voluntarios tienen asignado un aparcamiento (mínimo) o más de uno porque puede ser que en un futuro tengan que prestar sus servicios en otro municipio distinto al habitual.
+•    Los aparcamientos está asignados a ningún voluntario (vacío) o como mucho a un único voluntario.
+
+•    Los vehículos que prestan servicios en un momento dado, ocupan un aparcamiento concreto. Es decir, uno y sólo uno.
+•    Los aparcamientos, pueden estar vacío o estar asignados a un único vehículo.
+
+•    Como es de imaginar cada aparcamiento está en un único municipio y sólo uno.
+•    Los municipios tienen uno o más aparcamientos (algo, fácil de imaginar).
+
+•    Los municipios cuentan con un vigilante para sus aparcamientos o varios.
+•    A los vigilantes se le pueden asignar la vigilancia de los aparcamientos de un municipio o varios por su cercanía.
+
+Otra información que se necesitará almacenar:
+•    La fecha en la que se le ha asignado a un voluntario en determinado aparcamiento. Por lo descrito anteriormente, puedes intuir que estos voluntarios pueden tener varios aparcamientos asignados si disponen de varios vehículos.
+•    La fecha desde la que ocupa un determinado vehículo un aparcamiento.
+•    El número de coches que cada vigilante tiene asignado para su supervisión o vigilancia.
+
+Completa los siguientes apartados: 
+a.    Según la especificación de requerimientos, elabora el esquema conceptual basado en el modelo Entidad/Relación. Puedes utilizar cualquiera de las notaciones vistas a lo largo de la unidad.
+b.    Aplica el modelo Relacional y detalla las tablas, atributos, claves y claves foráneas generadas.
+
+¿Qué debes entregar?: 
+
+Un documento en el que aparezca el  diagrama Entidad-Relación o esquema conceptual que responda a todos y cada uno de los requerimientos estipulados, utilizando correctamente la notación elegida. Este diagrama puede generarse con cualquier aplicación software capaz de representar la simbología del modelo. También, una fotografía del diagrama realizado con bolígrafo y letra clara sería válido.
+
+Después de este diagrama, aparecerá el conjunto de tablas obtenidas tras aplicar las reglas de transformación estudiadas en la unidad.
+
+Criterios de puntuación. Total 10 puntos.
+
+Puntuación por apartados
+
+Elaboración del esquema conceptual basado en el modelo Entidad/Relación, 5 puntos
+Aplicación del modelo Relacional y obtención de tablas, 5 puntos
+TOTAL 10 puntos
+Recursos necesarios para realizar la Tarea.
+
+Ordenador personal con un procesador de textos y aplicaciones software capaces de generar esquemas conceptuales utilizando la notación del modelo E/R.
+Conexión a Internet.
+Navegador Web.
+Programa de impresión en formato pdf.
+Consejos y recomendaciones.
+
+Se recomienda realizar la secuencia de apartados en el orden establecido.
+
+Para la elaboración de los diagramas existen herramientas específicas libres que puedes descargar de Internet, aunque cualquier procesador de textos, presentaciones o programa de dibujo simple puede servirte. Incluso, como ya se ha indicado, una fotografía del esquema que se haya hecho a mano puede servir si es claro todo lo que se ha representado en el esquema.
+
+Indicaciones de entrega.
+
+Una vez realizada la tarea elaborarás un único documento donde figuren las respuestas correspondientes. El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes pautas:
+
+apellido1_apellido2_nombre_BDxx_Tarea_entrega_#
+
+Asegúrate que el nombre no contenga la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas para la tercera unidad del MP de BD, debería nombrar esta tarea (si es la primera entrega) como...
+
+sanchez_manas_begona_BD03_Tarea_entrega_1

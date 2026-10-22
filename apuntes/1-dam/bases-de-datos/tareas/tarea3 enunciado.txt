@@ -1,0 +1,84 @@
+Este supuesto sólo tiene un fin didáctico para trabajar y consolidar los conceptos trabajados en la unidad.
+
+Lee atentamente la siguiente especificación de requerimientos:
+
+Se desea crear una base de datos para controlar un negocio dedicado a la reparación (servicio técnico) de tablets y smartphones.
+
+1) De los CLIENTES que llevarán sus dispositivos para ser reparados, sólo interesará guardar el DNI (que actuará como clave), el teléfono al que llamarle para informarle de la reparación, presupuesto, etc. y nombre por el que nos dirigiremos a él.
+
+2) De los DISPOSITIVOS interesará almacenar el número de serie (que actuará como clave) y la marca. Eso sí:
+      - Si se trata de una tablet sólo interesará almacenar si posee, o no, SIM.
+      - Si se trata de un smartphone, interesará conocer el SO y el tamaño de la pantalla.
+Como puedes observar, al tener que almacenar datos distintos (según el tipo de dispositivo o subclase) será necesario representar este hecho mediante una especialización.
+
+Después, en la transformación a tablas deseo que las subclases tablet y Smartphone generen una tabla cada una. Por tanto, estas tablas deberán incorporar los atributos comunes de la superclase DISPOSITIVO.
+
+3)De los TÉCNICOS de la empresa sólo interesará conocer su DNI y su nombre.
+
+4) De los distintos DEPARTAMENTOS del servicio técnico sólo interesará almacena el número del departamento (que actuará de clave) y el teléfono.
+
+5) Cada departamento posee un JEFE que supervisa el trabajo. De él sólo interesa conocer su DNI y el nombre.
+
+
+CONSIDERACIONES SOBRE LAS RELACIONES ENTRE LAS ENTIDADES ANTERIORES:
+
+1)    Un cliente puede llevar uno o varios dispositivos al servicio técnico. Lógicamente, cada dispositivo sólo pertenece a un cliente.
+2)    Un dispositivo sólo se le asigna a un único técnico. Un técnico podrá NO TENER asignado ningún dispositivo o como mucho uno. Sólo cuando termina la reparación se le asigna otro dispositivo.
+3)    Un técnico sólo trabaja en un departamento. Pero un departamento puede tener uno o más técnicos asignados a él.
+4)    En los departamentos debido a la gran cantidad de proyectos o trabajos a realizar pueden tener uno o más jefes. De la misma forma, los jefes pueden supervisar trabajos de uno o varios departamentos.
+
+OTRAS CONSIDERACIONES
+
+Además de lo anterior, debes tener en cuenta que interesará guardar estas dos cosas:
+
+1)    La fecha en la que un dispositivo ha sido asignado a un técnico.
+2)    El número de proyectos o reparaciones (nro_reparaciones) que debe atender un jefe en cada departamento donde realiza esta labor de supervisión.
+
+
+.
+
+
+Completa los siguientes apartados:
+
+Según la especificación del supuesto, elabora el esquema conceptual basado en el modelo Entidad/Relación. Puedes utilizar cualquiera de las notaciones vistas a lo largo de la unidad.
+Aplica el modelo Relacional y detalla las tablas, atributos, claves y claves foráneas generadas.
+Lo que debes entregar:
+
+El diagrama Entidad-Relación o esquema conceptual que responda a todos y cada uno de los requerimientos estipulados, utilizando correctamente la notación elegida. Este diagrama puede generarse con cualquier aplicación software capaz de representar la simbología del modelo. El esquema debe debe insertarse dentro del un documento generado con algún procesador de textos. El esquema, si se desea también se podrá realizar a mano y realizar una fotografía del mismo.
+ 
+
+El conjunto de tablas obtenidas tras el proceso de aplicación del modelo Relacional al esquema conceptual modificado obtenido en el punto anterior. Este conjunto de tablas se plasmará a continuación del esquema insertado en el procesador de textos.
+
+
+Cómo lo debes entregar:
+
+Se creará un archivo pdf a partir del documento elaborado con procesador de textos, que incluya tanto el diagrama E/R como las tablas que se deducen de él tras la aplicación de las reglas estudiadas en la unidad y se enviará al tutor.
+
+Criterios de puntuación. Total 10 puntos.
+
+Puntuación por apartados
+
+Elaboración del esquema conceptual basado en el modelo Entidad/Relación, 5 puntos
+Aplicación del modelo Relacional y obtención de tablas, 5 puntos
+TOTAL 10 puntos
+Recursos necesarios para realizar la Tarea.
+
+Ordenador personal con un procesador de textos y aplicaciones software capaces de generar esquemas conceptuales utilizando la notación del modelo E/R.
+Conexión a Internet.
+Navegador Web.
+Programa de impresión en formato pdf.
+Consejos y recomendaciones.
+
+Se recomienda realizar la secuencia de apartados en el orden establecido.
+
+Para la elaboración de los diagramas existen herramientas específicas libres que puedes descargar de Internet, aunque cualquier procesador de textos, presentaciones o programa de dibujo simple puede servirte. Incluso, como ya se ha indicado, una fotografía del esquema que se haya hecho a mano puede servir si es claro todo lo que se ha representado en el esquema.
+
+Indicaciones de entrega.
+
+Una vez realizada la tarea elaborarás un único documento donde figuren las respuestas correspondientes. El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes pautas:
+
+apellido1_apellido2_nombre_BDxx_Tarea_entrega_#
+
+Asegúrate que el nombre no contenga la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas para la tercera unidad del MP de BD, debería nombrar esta tarea (si es la primera entrega) como...
+
+sanchez_manas_begona_BD03_Tarea_entrega_1

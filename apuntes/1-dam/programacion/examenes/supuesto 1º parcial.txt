@@ -1,0 +1,104 @@
+Clase Estudiante
+java
+Copiar código
+public class Estudiante {
+    private String nombre;
+    private int edad;
+    private double calificacion;
+
+    // Constructor
+    public Estudiante(String nombre, int edad, double calificacion) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.calificacion = calificacion;
+    }
+
+    // Getters y Setters
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    // Método específico
+    public boolean aprobado() {
+        return calificacion >= 5.0;
+    }
+
+    // Método para mostrar información del estudiante
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+        System.out.println("Calificación: " + calificacion);
+        System.out.println("Aprobado: " + (aprobado() ? "Sí" : "No"));
+    }
+}
+Programa Principal
+java
+Copiar código
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ProgramaPrincipal {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+        // Entrada de información
+        System.out.println("¿Cuántos estudiantes desea ingresar?");
+        int cantidad = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+
+        for (int i = 0; i < cantidad; i++) {
+            System.out.println("Ingrese los datos del estudiante " + (i + 1) + ":");
+
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+
+            System.out.print("Edad: ");
+            int edad = scanner.nextInt();
+
+            System.out.print("Calificación: ");
+            double calificacion = scanner.nextDouble();
+            scanner.nextLine(); // Limpiar el buffer
+
+            Estudiante estudiante = new Estudiante(nombre, edad, calificacion);
+            estudiantes.add(estudiante);
+        }
+
+        // Salida de información y recorrer estructura de almacenamiento
+        System.out.println("\nLista de Estudiantes:");
+        for (Estudiante estudiante : estudiantes) {
+            estudiante.mostrarInformacion();
+            System.out.println();
+        }
+
+        // Utilización de estructuras condicionales y bucles
+        System.out.println("Estudiantes aprobados:");
+        for (Estudiante estudiante : estudiantes) {
+            if (estudiante.aprobado()) {
+                System.out.println(estudiante.getNombre() + " ha aprobado.");
+            }
+        }
+
+        scanner.close();
+    }
+}

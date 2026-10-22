@@ -1,0 +1,198 @@
+Servidor multihilo
+
+
+
+package tu.paquete;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+/**
+ * Plantilla de servidor HTTP multihilo con logging y almacenamiento en mapa concurrente.
+ */
+public class ServidorHTTP {
+
+    private static final int PUERTO = 808X; // cambia por el puerto del supuesto
+    private static ConcurrentHashMap<String, String> mapaDatos = new ConcurrentHashMap<>();
+    private static final Logger logger = Logger.getLogger("RegistroServidor");
+
+    public static void main(String[] args) {
+        try {
+            FileHandler fileHandler = new FileHandler("registro.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+
+            ServerSocket servidor = new ServerSocket(PUERTO);
+            System.out.println("Servidor HTTP escuchando en el puerto " + PUERTO);
+
+            while (true) {
+                Socket socket = servidor.accept();
+                new Thread(new ManejadorCliente(socket, mapaDatos, logger)).start();
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error al iniciar el servidor: " + e.getMessage());
+        }
+    }
+}
+
+
+ManjeadorCliente
+
+
+package tu.paquete;
+
+import java.io.*;
+import java.net.Socket;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
+
+/**
+ * Plantilla de manejador de cliente HTTP.
+ * Responde a rutas específicas y genera rutas/datos aleatorios.
+ */
+public class ManejadorCliente implements Runnable {
+
+    private Socket socket;
+    private ConcurrentHashMap<String, String> mapa;
+    private Logger logger;
+
+    public ManejadorCliente(Socket socket, ConcurrentHashMap<String, String> mapa, Logger logger) {
+        this.socket = socket;
+        this.mapa = mapa;
+        this.logger = logger;
+    }
+
+    @Override
+    public void run() {
+        try (
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        ) {
+            String requestLine = in.readLine();
+            if (requestLine == null || !requestLine.startsWith("GET")) return;
+
+            String ruta = requestLine.split(" ")[1];
+
+            // Detectar ruta especial con parámetro (ej: /crear?clave=123)
+            if (ruta.startsWith("/accion?param=")) {
+                String valor = ruta.split("=")[1];
+                String rutaGenerada = generarCodigo(5);
+
+                mapa.put(rutaGenerada, valor);
+                logger.info("Ruta: " + rutaGenerada + ", valor: " + valor);
+
+                String url = "http://localhost:808X/" + rutaGenerada;
+                enviarRespuesta(out, "HTTP/1.1 200 OK", url);
+
+            } else {
+                String clave = ruta.substring(1);
+                if (mapa.containsKey(clave)) {
+                    String contenido = "Valor: " + mapa.get(clave);
+                    enviarRespuesta(out, "HTTP/1.1 200 OK", contenido);
+                    mapa.remove(clave); // acceso de un solo uso
+                } else {
+                    enviarRespuesta(out, "HTTP/1.1 404 Not Found", "404 - Recurso no disponible");
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error con el cliente: " + e.getMessage());
+        }
+    }
+
+    private void enviarRespuesta(BufferedWriter out, String estado, String cuerpo) throws IOException {
+        String respuesta =
+            estado + "\r\n" +
+            "Content-Type: text/html; charset=UTF-8\r\n" +
+            "Content-Length: " + cuerpo.length() + "\r\n" +
+            "\r\n" + cuerpo;
+        out.write(respuesta);
+        out.flush();
+    }
+
+    private String generarCodigo(int longitud) {
+        String caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < longitud; i++) {
+            sb.append(caracteres.charAt(random.nextInt(caracteres.length())));
+        }
+        return sb.toString();
+    }
+}
+
+
+Cliente consola
+
+package tu.paquete;
+
+import java.io.*;
+import java.net.Socket;
+
+/**
+ * Plantilla de cliente en consola para enviar solicitud GET y leer respuesta del servidor.
+ */
+public class Cliente {
+
+    public static void main(String[] args) {
+        final String servidor = "localhost";
+        final int puerto = 808X;
+        final String dato = "valorDeEjemplo"; // cambia por lo que se espera enviar
+
+        try (
+            Socket socket = new Socket(servidor, puerto);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        ) {
+            String peticion = "GET /accion?param=" + dato + " HTTP/1.1\r\n" +
+                              "Host: " + servidor + "\r\n" +
+                              "\r\n";
+            out.write(peticion);
+            out.flush();
+
+            String linea, url = null;
+            while ((linea = in.readLine()) != null) {
+                if (linea.startsWith("http")) {
+                    url = linea.trim();
+                    break;
+                }
+            }
+
+            if (url != null) {
+                System.out.println("URL recibida: " + url);
+                String ruta = url.substring(url.lastIndexOf("/"));
+
+                try (
+                    Socket socket2 = new Socket(servidor, puerto);
+                    BufferedWriter out2 = new BufferedWriter(new OutputStreamWriter(socket2.getOutputStream()));
+                    BufferedReader in2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
+                ) {
+                    String peticion2 = "GET " + ruta + " HTTP/1.1\r\n" +
+                                       "Host: " + servidor + "\r\n" +
+                                       "\r\n";
+                    out2.write(peticion2);
+                    out2.flush();
+
+                    System.out.println("\nRespuesta del servidor:");
+                    while ((linea = in2.readLine()) != null) {
+                        System.out.println(linea);
+                    }
+                }
+            } else {
+                System.out.println("No se recibió una URL válida.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error en el cliente: " + e.getMessage());
+        }
+    }
+}
+
+

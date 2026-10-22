@@ -1,0 +1,172 @@
+Tipos principales de estructuras de datos dinámicas en Java:
+
+Arrays:
+Tamaño fijo al crearse.
+Acceso directo a elementos por índice.
+Útiles para almacenar colecciones de datos del mismo tipo.
+Limitación: No se pueden expandir de forma dinámica.
+ArrayList:
+Tamaño variable.
+Basado en arrays, pero se expande automáticamente cuando se añaden elementos.
+Acceso directo a elementos por índice.
+LinkedList:
+Tamaño variable.
+Cada elemento (nodo) almacena un valor y una referencia al siguiente nodo.
+Inserción y eliminación eficientes en cualquier posición.
+Acceso secuencial a elementos.
+Stack (Pila):
+LIFO (Last In, First Out): El último elemento añadido es el primero en ser eliminado.
+Usada para implementar mecanismos como el deshacer/rehacer.
+Queue (Cola):
+FIFO (First In, First Out): El primer elemento añadido es el primero en ser eliminado.
+Utilizada para modelar sistemas de espera.
+HashSet:
+No permite elementos duplicados.
+Basado en una tabla hash para un acceso rápido.
+Ideal para buscar elementos de forma eficiente.
+HashMap:
+Almacena pares clave-valor.
+Basado en una tabla hash.
+Permite buscar elementos por clave de forma rápida.
+¿Cuándo usar cada una?
+
+ArrayList: Cuando necesitas acceder a elementos por índice y el tamaño es variable.
+LinkedList: Cuando necesitas insertar o eliminar elementos en cualquier posición con frecuencia.
+Stack: Cuando necesitas una estructura LIFO.
+Queue: Cuando necesitas una estructura FIFO.
+HashSet: Cuando necesitas almacenar elementos únicos y buscarlos rápidamente.
+HashMap: Cuando necesitas asociar valores a claves y buscarlos rápidamente.
+
+
+import java.util.ArrayList;
+
+public class EjemploArrayList {
+    public static void main(String[] args) {
+        ArrayList<String> nombres = new ArrayList<>();
+        nombres.add("Juan");
+        nombres.add("María");
+        nombres.add("Pedro");
+
+        System.out.println(nombres); // Imprime [Juan, María, Pedro]
+    }
+}
+
+
+Sets y Lists: Una Comparativa Detallada
+Set y List son interfaces de la colección de Java que representan grupos de elementos. Aunque ambos almacenan colecciones de objetos, tienen características y usos distintos.
+
+List
+Orden: Mantiene un orden específico de los elementos.
+Duplicados: Permite elementos duplicados.
+Acceso: Proporciona acceso aleatorio a los elementos a través de índices numéricos.
+Implementaciones comunes: ArrayList, LinkedList.
+Usos típicos:
+
+Cuando necesitas mantener un orden específico de elementos.
+Cuando necesitas acceder a elementos por índice.
+Para representar secuencias de datos.
+Ejemplo:
+
+Java
+List<String> frutas = new ArrayList<>();
+frutas.add("manzana");
+frutas.add("banana");
+frutas.add("manzana"); // Se permite duplicados
+Usa el código con precaución.
+
+Set
+Orden: No garantiza un orden específico de los elementos.
+Duplicados: No permite elementos duplicados.
+Acceso: No proporciona acceso aleatorio por índice, sino a través de iteradores.
+Implementaciones comunes: HashSet, TreeSet.
+Usos típicos:
+
+Cuando necesitas almacenar elementos únicos.
+Cuando el orden no es importante.
+Para realizar operaciones de conjunto como unión, intersección, diferencia.
+Ejemplo:
+
+Java
+Set<String> colores = new HashSet<>();
+colores.add("rojo");
+colores.add("verde");
+colores.add("rojo"); // Se ignora el duplicado
+
+
+¡Absolutamente! Vamos a profundizar en los elementos Set y List dentro de las estructuras de datos dinámicas en Java.
+
+Sets y Lists: Una Comparativa Detallada
+Set y List son interfaces de la colección de Java que representan grupos de elementos. Aunque ambos almacenan colecciones de objetos, tienen características y usos distintos.
+
+List
+Orden: Mantiene un orden específico de los elementos.
+Duplicados: Permite elementos duplicados.
+Acceso: Proporciona acceso aleatorio a los elementos a través de índices numéricos.
+Implementaciones comunes: ArrayList, LinkedList.
+Usos típicos:
+
+Cuando necesitas mantener un orden específico de elementos.
+Cuando necesitas acceder a elementos por índice.
+Para representar secuencias de datos.
+Ejemplo:
+
+Java
+List<String> frutas = new ArrayList<>();
+frutas.add("manzana");
+frutas.add("banana");
+frutas.add("manzana"); // Se permite duplicados
+Usa el código con precaución.
+
+Set
+Orden: No garantiza un orden específico de los elementos.
+Duplicados: No permite elementos duplicados.
+Acceso: No proporciona acceso aleatorio por índice, sino a través de iteradores.
+Implementaciones comunes: HashSet, TreeSet.
+Usos típicos:
+
+Cuando necesitas almacenar elementos únicos.
+Cuando el orden no es importante.
+Para realizar operaciones de conjunto como unión, intersección, diferencia.
+Ejemplo:
+
+Java
+Set<String> colores = new HashSet<>();
+colores.add("rojo");
+colores.add("verde");
+colores.add("rojo"); // Se ignora el duplicado
+Usa el código con precaución.
+
+Cuándo usar cada uno
+Característica	List	Set
+Orden	Sí	No (generalmente)
+Duplicados	Sí	No
+Acceso	Aleatorio por índice	Iteradores
+Uso típico	Secuencias ordenadas, acceso aleatorio	Elementos únicos, operaciones de conjunto
+
+Exportar a Hojas de cálculo
+Otras consideraciones
+HashSet: Utiliza una función hash para almacenar elementos, ofreciendo un acceso muy rápido.
+TreeSet: Almacena elementos en orden natural o según un comparador personalizado.
+LinkedHashSet: Mantiene el orden de inserción de los elementos.
+Ejemplo de operaciones comunes:
+
+Java
+// Agregar elementos
+List<Integer> numeros = new ArrayList<>();
+numeros.add(3);
+numeros.add(1);
+numeros.add(4);
+
+Set<Character> vocales = new HashSet<>();
+vocales.add('a');
+vocales.add('e');
+vocales.add('i');
+
+// Eliminar elementos
+numeros.remove(1); // Elimina el elemento en el índice 1
+vocales.remove('a'); // Elimina el elemento 'a'
+
+// Buscar elementos
+if (numeros.contains(4)) {
+    System.out.println("El número 4 está en la lista");
+}

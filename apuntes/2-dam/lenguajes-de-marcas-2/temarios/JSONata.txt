@@ -1,0 +1,19 @@
+1. para cada desarrolaldor, si es senior, devuelve el nombre, sino, devuelve "Junior"
+
+desarrolladores.(es_senior ? nombre : 'Junior: ' & nombre)
+
+2. selecciona los nombres de los desarrolladores cuyo lenguaje es "Java" o "Python"
+
+ desarrolladores[lenguaje ~> /Java|Python/].nombre
+
+3. ordena los desarrolladores de forma aascendente (de menor a mayor) por experiencia
+
+$sort(desarrolladores, function($l, $r) {
+  $l.experiencia >= $r.experiencia
+}).(nombre & "(" & experiencia & "años)")
+
+4. muestra los desarrolladores que tengan 3 frameworks
+
+desarrolladores[$reduce(frameworks, function($acc, $framework) {
+    $acc + 1
+}, 0) >= 3].nombre

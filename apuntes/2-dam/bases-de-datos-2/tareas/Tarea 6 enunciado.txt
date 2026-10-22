@@ -1,0 +1,53 @@
+En esta tarea sólo pretendo que conozcas qué es PL/SQL.
+
+Y nada mejor que hacerlo con “pantalla y teclado”.
+
+En el documento adjunto encontrarás unos ejemplos que deberás adaptar a los requerimientos de los cuatro ejercicios que se describen.
+
+Sólo tendrás que CAMBIAR algunas definiciones de atributos y nombres para adaptarlos a los cuatro enunciados propuestos.
+
+ 
+
+¿Qué deberás entregar? Pues un txt con la siguiente estructura para que pueda probar los códigos.
+
+
+---------------EJERCICIO 1--------------------
+
+a) Código que visualice el nombre indicado.
+
+ ---------------EJERCICIO 2--------------------
+
+a) Código con la sentencia CREATE.
+
+b) Tres INSERT para introducir en la taba los datos requeridos.
+
+c) Código para visualización de datos mediante el uso de registros.
+
+---------------EJERCICIO 3--------------------
+
+a) Código para la visualización de datos mediante el uso de cursores.
+
+---------------EJERCICIO 4--------------------
+
+a) Código donde se declara el disparador o trigger.
+
+b) INSERT para crear un nuevo registro con el nombre de una fruta en minúscula. Al visualizar los datos de la tabla, la fruta aparecerá en mayúsculas.
+
+ 
+
+Criterios de puntuación. Total 10 puntos.
+Ejercicios (total 10 puntos):
+
+1'5 puntos.
+4 puntos.
+3 puntos.
+1'5 puntos.
+Recursos necesarios para realizar la Tarea.
+Oracle Database Express
+
+
+Consejos y recomendaciones.
+Es recomendable ir escribiendo los códigos en el propio txt, probarlos en Oracle y cuando funcione seguir avanzando por los requerimientos de cada ejercicio.
+
+Indicaciones de entrega.
+Una vez realizada la tarea elaborarás un único documento (el txt elaborado con el bloc de notas) donde figuren las códigos solicitados. 

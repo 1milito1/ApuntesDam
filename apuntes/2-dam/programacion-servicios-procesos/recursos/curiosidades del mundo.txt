@@ -1,0 +1,209 @@
+package org.example;
+
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServidorHTTP {
+
+    private static final int PUERTO = 8066; // Define el puerto en el que se conecta el servidor a la escucha
+
+
+    public static void main(String[] args) {
+
+        try (ServerSocket servidorSocket = new ServerSocket(PUERTO)){ //Crea un ServerSocket que escucha el puerto especificado
+            System.out.println("Servidor HTTP escuchando en el puerto " + PUERTO);
+
+            while (true){ //Bucle infinito para aceptar conexiones de clientes
+                Socket clienteSocket = servidorSocket.accept(); //Acepta una conexion
+                System.out.println("Cliente conectado desde: " + clienteSocket.getInetAddress().getHostAddress());
+
+                // Crea un nuevo hilo para manejar la conexión del cliente
+                Thread hiloCliente = new Thread(new ManejadorClente(clienteSocket));
+                hiloCliente.start(); // Inicia el hilo, lo que ejecuta el método run del ManejadorCliente
+            }
+
+        }catch (IOException e){
+            System.err.println("Error al iniciar el servidor: " + e.getMessage());
+        }
+    }
+}
+
+package org.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class ManejadorClente implements Runnable{ //Implementa la interfaz Runnable para poder ejecutar en un hilo
+    private Socket clienteSocket; // Almacena el socket del cliente con el que se esta conectando
+
+    //Constructor, recibe el socket del cliente.
+    public ManejadorClente(Socket socket){
+        this.clienteSocket = socket;
+    }
+    @Override
+    public void run() {
+        try (
+                BufferedReader entrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
+                PrintWriter salida = new PrintWriter(clienteSocket.getOutputStream(), true)
+        ){
+            String lineaPeticion = entrada.readLine(); // Lee la primera linea de la petición del cliente
+            if (lineaPeticion !=null && lineaPeticion.startsWith("GET ")){ // verifica que sea una peticón GET válida
+                String ruta = obtenerRuta(lineaPeticion);// Obtiene la ruta de la petición del cliente
+                System.out.println("Petición: " + lineaPeticion); // Imprime la peticion en la consola del servidor
+                responder(salida, ruta); // llama al método respondera para enviar la respuesta al cliente
+            } else if(lineaPeticion != null){ // si la petición no es un GET válido
+                System.out.println("Petición no GET o inválida: " + lineaPeticion);
+                responderError(salida); // llama al método responderError para enviar una respuesta de error.
+            }
+
+        }catch (IOException e){
+            System.err.println("Error al manejar la conexión del cliente: " + e.getMessage());
+        } finally { // Bloque finally para asegurar que el socket se cierre
+            try {
+                clienteSocket.close(); // cierra el socket
+                System.out.println("Cliente desconectado: " + clienteSocket.getInetAddress().getHostAddress());
+            }catch (IOException e){
+                System.err.println("Error al cerrar el socket del cleinte: " + e.getMessage());
+            }
+        }
+    }
+
+    //Método para obetner la ruta de la petición HTTP
+    private String obtenerRuta(String lineaPeticion) {
+        String[] partes = lineaPeticion.split(" "); // Divide la petición en partes (método, ruta, protocolo, etc.)
+        if (partes.length >1){
+            return partes[1]; // Devuelve la segunda parte, que es la ruta
+        }
+        return "/"; // Devuelve "/" por defecto si no se encuentra la ruta
+    }
+
+    // Metodo para responder al cliente con el contenido HTML corrspondete a la ruta de la petición
+    private void responder(PrintWriter salida, String ruta){
+        String contenidoHTML = ""; // Inicia la variable para almacenar el contenido HTML
+        String cabecera = Mensajes.CABECERA_OK; // Inicializa la cabecera con la cabecera de éxito
+
+        switch (ruta){ // Usan un switch para determinar que contenido HTML enviar según la ruta
+            case "/":
+                contenidoHTML = Paginas.getPaginaBinevenida();
+                break;
+            case "/curiosidad":
+                contenidoHTML = Paginas.getPaginaCuriosidad();
+                break;
+            case "/contacto":
+                contenidoHTML = Paginas.getPaginaContacto();
+                break;
+            default:
+                cabecera = Mensajes.CABECERA_NOT_FOUND; // Si la ruta no coincide, usa la cabecera de NOT FOUND de error
+                contenidoHTML = Paginas.getPaginaNotFound(); // Obtiene la página de error 404
+                break;
+        }
+        salida.print(cabecera + contenidoHTML);
+
+    }
+
+    //Método para responder con la página de error 404
+    private void responderError(PrintWriter salida){
+        salida.print(Mensajes.CABECERA_NOT_FOUND + Paginas.getPaginaNotFound());
+    }
+}
+
+package org.example;
+
+public class Mensajes {
+    // Define la cabecera HTTP para un respuesta existosa (código 200 ok)
+    public static final String CABECERA_OK = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html; charset=UTF-8\r\n" + "Conection: close\r\n\r\n";
+
+    // Define la cabecera HTTP para una respeusta de error "Not Found" (Código 404)
+    public static final String CABECERA_NOT_FOUND = "HTTP/1.1 404 Not Found\r\n" + "Content-Type: text/html; charset=UTF-8\r\n" + "Conection: close\r\n\r\n";
+}
+
+
+package org.example;
+
+import java.util.Random;
+
+public class Paginas {
+
+    // Array de curiosidades que se mostrarán aleatoriamente mediante un Random
+    private static final String [] CURIOSIDADES = {
+            "¿Sabías que la miel nunca se echa a perder?",
+            "El corazón de una ballena azul es tan grande que una persona podría nadar por por sus arterias",
+            "Los pulpos tienen tres corazones.",
+            "Las huellas dactilares de los koalas son tan similares a las de los humanos que incluso lso expertos a veces tiene dificultades para distinguirlas",
+            "El sonido más fuerte producido por un animal es el del camarón pistoal al cerrar su pinza"
+    };
+
+    private static final Random RANDOM = new Random(); //Creamos la instancia de Random para curiosidades aleatorias
+
+
+    //Método para obtener la página de bienvenida
+    public static String getPaginaBinevenida(){
+        //Creación del documento HTML
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<title>Bienvenido</title>\n" +
+                "</head>\n" +
+                "<h1>¡Bienvenido al Servidor de Curiosidades!</h1>\n" +
+                "<p> Explora las curiosidades del mundo visitando <a href='/curiosidad'> /curiosidad</a>.</p>\n" +
+                "<p>Contáctanos en <a href='/contacto'>/contacto</a>.</p>\n" +
+                "</body>\n" +
+                "</html>";
+    }
+
+    //Método para obtener la página de curiosidad
+    public static String getPaginaCuriosidad() {
+        int indice = RANDOM.nextInt(CURIOSIDADES.length); //Genera un indice aleatorio sobre el array de curiosidades
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<title>Curiosidad</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>Curiosidad del día</h1>\n" +
+                "<p>" + CURIOSIDADES[indice] + "</p>\n" +
+                "<p><a href='/'>Volver a la página principal</a></p>\n" +
+                "</body>" +
+                "</html>";
+    }
+
+    //Método para la página de contacto
+    public static String getPaginaContacto() {
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<title>Contacto</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>Información de Contacto</h1>\n" +
+                "<p>Email: info@curiosidadesdelmundo.com</p>\n" +
+                "<p>Teléfono: +34 91 123 45 67</p>\n" +
+                "<p>Dirección: Calle Ficticia, 123, Plasencia (España)</p>\n" +
+                "<p><a href='/'>Volver a la página principal</a></p>\n" +
+                "</body>\n" +
+                "</html>";
+    }
+
+    //Método para obtener la página de error 404 (Not Found)
+    public static String getPaginaNotFound() {
+        return"<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<title>Error 404</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>¡Error 404!</h1>\n" +
+                "<p>La página solicitada no se ha encontrado.</p>\n" +
+                "<p><a href='/'>Volver a la página principal</a></p>\n" +
+                "</body>\n" +
+                "</html>";
+    }
+}
+
+
+

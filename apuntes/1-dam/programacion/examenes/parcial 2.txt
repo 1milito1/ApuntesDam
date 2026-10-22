@@ -1,0 +1,559 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author milio
+ */
+public class Parcial2 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Servidor servidor = new Servidor();
+        Scanner scanner = new Scanner (System.in);
+        int opcion;
+        
+        do{
+            System.out.println("\n--- Menu Principal ---");
+            System.out.println("1. Nuevo Servicio");
+            System.out.println("2. Listado Servicios");
+            System.out.println("3. Borrar Servicios");
+            System.out.println("4. Crear Resumen");
+            System.out.println("5. Opcion a elegir");
+            System.out.println("6. Salir");
+            System.out.println("Elije una opcion: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (opcion) {
+                case 1:
+                    nuevoServicio(servidor, scanner);                    
+                    break;
+                case 2:
+                    listadoServicios(servidor, scanner);
+                    break;
+                case 3:
+                    borrarServicio(servidor, scanner);
+                    break;
+                case 4:
+                    crearResumen(servidor);
+                    break;
+                case 5:
+                    opcionAElegir(servidor, scanner);
+                    break;
+                case 6:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opciónn no válida");
+            }
+            }while (opcion !=6);
+        }
+
+    private static void nuevoServicio(Servidor servidor, Scanner scanner) {
+        System.out.println("\n--- Crear Nuevo Servicio ---");
+        System.out.println("Tipo de serivicio (1= Archivo, 2=Alojamienot, 3 Aplicaciones):");
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.println("Nombre del servicio: ");
+        String nombre = scanner.nextLine();
+        
+        System.out.println("Precio base: ");
+        double precio = scanner.nextDouble();
+        
+        Servicio servicio = null;
+        
+        switch (tipo) {
+            case 1:
+                System.out.println("Almacenamiento (GB): ");
+                int almacenamiento = scanner.nextInt();
+                System.out.println("Coste por GB de almacenamiento: ");
+                double costePorGBAlmacenamiento = scanner.nextDouble();
+                servicio = new archivo(nombre, precio, almacenamiento, costePorGBAlmacenamiento);
+                break;
+            case 2:
+                System.out.println("Máximo de sitios web: ");
+                int maxSitiosWeb = scanner.nextInt();
+                System.out.println("coste por sitio: ");
+                double costePorSitio = scanner.nextDouble();
+                servicio = new Alojamiento(nombre, precio, maxSitiosWeb, costePorSitio);
+                break;
+            case 3:
+                System.out.println("Almacenamiento (G): ");
+                int alm = scanner.nextInt();
+                System.out.println("Coste por GB de almacenamiento: ");
+                double costeAlm = scanner.nextDouble();
+                System.out.println("RAM (GB): ");
+                int ram = scanner.nextInt();
+                System.out.println("Coste por GB de RAM: ");
+                double costePorGBRam = scanner.nextDouble();
+                servicio = new Aplicaciones (nombre, precio, alm, costeAlm, ram, costePorGBRam);
+                break;
+            default:
+                System.out.println("Tipo de servicio no valido");
+                return;
+        }
+        
+        if (servidor.agregarServicio(servicio)){
+            System.out.println("Servicio añadido exitosamente.");
+        }else {
+            System.out.println("El servicio ya existe y no se puede duplicar.");
+        }
+    }
+
+    private static void listadoServicios(Servidor servidor, Scanner scanner) {
+        System.out.println("\n --- Listado de servicios ---");
+        servidor.mostrarServicios();
+        
+        double totalFacturacion = servidor.getTotalFacturacion();
+        System.out.println("\nTotal de facturacion: " + totalFacturacion + " €");
+ 
+
+    }
+
+    private static void borrarServicio(Servidor servidor, Scanner scanner) {
+        System.out.println("\n Nombre del servicio a borrar: ");
+        String nombre = scanner.nextLine();
+        
+        if (servidor.eliminarServicioPorNombre(nombre)){
+            System.out.println("Servicio eliminado");
+        }else {
+            System.out.println("Servicio no encontrado");
+        }
+    }
+
+    private static void crearResumen(Servidor servidor) {
+        System.out.println("\n--- Resumen de Servicios ---");
+        List<ResumenServicio> resumen = servidor.crearResumenServicios();
+        
+        resumen.sort(Comparator.comparing(ResumenServicio::getNombre));
+        
+        for(ResumenServicio rs : resumen){
+            System.out.println(rs);
+        }
+        double totalFacturacion = servidor.getTotalFacturacion();
+        System.out.println("\nTotal de facturación; " + totalFacturacion + " €");
+    }
+
+    private static void opcionAElegir(Servidor servidor, Scanner scanner) {
+        
+        System.out.println("\nElige una opcion:");
+        System.out.println("1. listado grafico");
+        System.out.println("2. Guardar en fichero.");
+        int opcion = scanner.nextInt();
+        
+        switch (opcion) {
+            case 1:
+                listadorGrafico(servidor);
+                
+                break;
+            case 2:
+                guardarFichero(servidor);
+                break;
+            default:
+                System.out.println("Opcion no valida");
+        }
+
+    }
+
+    private static void listadorGrafico(Servidor servidor) {
+        
+       StringBuilder mensaje = new StringBuilder("Listado de servicios:\n");
+       for(Servicio servicio : servidor.getServicios()){
+           mensaje.append(servicio).append("\n");
+       }
+       
+       JOptionPane.showMessageDialog(null, mensaje.toString(), "Listado de servicios", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void guardarFichero(Servidor servidor) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("servicios.txt"))) {
+            for (Servicio servicio : servidor.getServicios()){
+                writer.write(servicio.toString());
+                writer.newLine();
+            }
+            System.out.println("Servicio guardados en el fichero servicios.txt");
+        } catch (IOException e) {
+            System.out.println("error al guardar en el fichero:" + e.getMessage());
+        }
+ 
+        
+    }
+    
+    
+    
+        
+    
+    
+}
+
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+/**
+ *
+ * @author milio
+ */
+public class Servicio {
+    
+    private String nombre;
+    private double precio;
+    
+    public Servicio(){
+        this.nombre = "Sin nombre";
+        this.precio = 0.0;
+    }
+
+    public Servicio(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Servicio{" + "nombre=" + nombre + ", precio=" + precio + '}';
+    }
+    
+    public double calcularPrecio(){
+        return precio;
+    }
+}
+
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+/**
+ *
+ * @author milio
+ */
+public class archivo extends Servicio {
+    
+    private int almacenamiento;
+    private double costePorGBAlmacenamiento;
+    
+    public archivo(){
+        super("servicio sin nombre", 0.0);
+        this.almacenamiento = 0;
+        this.costePorGBAlmacenamiento = 0.0;
+    }
+
+    public archivo(String nombre, double precio, int almacenamiento, double costePorGBAlmacenamiento) {
+        super(nombre, precio);
+        this.almacenamiento = almacenamiento;
+        this.costePorGBAlmacenamiento = costePorGBAlmacenamiento;
+    }
+
+    public int getAlmacenamiento() {
+        return almacenamiento;
+    }
+
+    public void setAlmacenamiento(int almacenamiento) {
+        this.almacenamiento = almacenamiento;
+    }
+
+    public double getCostePorGBAlmacenamiento() {
+        return costePorGBAlmacenamiento;
+    }
+
+    public void setCostePorGBAlmacenamiento(double costePorGBAlmacenamiento) {
+        this.costePorGBAlmacenamiento = costePorGBAlmacenamiento;
+    }
+    
+    @Override
+    public double calcularPrecio(){
+        return super.getPrecio() + (almacenamiento * costePorGBAlmacenamiento);
+    }
+
+    @Override
+    public String toString() {
+        return "archivo{" + "almacenamiento=" + almacenamiento + ", costePorGBAlmacenamiento=" + costePorGBAlmacenamiento + ", precio total=" + calcularPrecio()+ '}';
+    }
+    
+}
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+/**
+ *
+ * @author milio
+ */
+public class Alojamiento extends Servicio{
+    
+    private int maxSitiosWeb;
+    private double costePorSitio;
+    
+    public Alojamiento(){
+        super();
+        this.maxSitiosWeb = 0;
+        this.costePorSitio = 0.0;
+    }
+
+    
+
+    public Alojamiento(String nombre, double precio, int maxSitiosWeb, double costePorSitio) {
+        super(nombre, precio);
+        this.maxSitiosWeb = maxSitiosWeb;
+        this.costePorSitio = costePorSitio;
+    }
+
+    public int getMaxSitiosWeb() {
+        return maxSitiosWeb;
+    }
+
+    public void setMaxSitiosWeb(int maxSitiosWeb) {
+        this.maxSitiosWeb = maxSitiosWeb;
+    }
+
+    public double getCostePorSitio() {
+        return costePorSitio;
+    }
+
+    public void setCostePorSitio(double costePorSitio) {
+        this.costePorSitio = costePorSitio;
+    }
+    @Override
+    public double calcularPrecio(){
+        return super.getPrecio() + (maxSitiosWeb * costePorSitio);
+    }
+
+    @Override
+    public String toString() {
+        return "Alojamiento{" + "maxSitiosWeb=" + maxSitiosWeb + ", costePorSitio=" + costePorSitio + ",precio total=" + calcularPrecio() +'}';
+    }
+}
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+/**
+ *
+ * @author milio
+ */
+public class Aplicaciones extends archivo {
+    
+    private int ram;
+    private double costePorGBRam;
+    
+    public Aplicaciones(){
+        super();
+        this.ram = 0;
+        this.costePorGBRam = 0.0;
+    }
+
+    public Aplicaciones(String nombre, double precio, int almacenamiento, double costePorGBAlmacenamiento, int ram, double costePorGBRam) {
+        super(nombre, precio, almacenamiento, costePorGBAlmacenamiento); 
+        this.ram = ram;
+        this.costePorGBRam = costePorGBRam;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
+    }
+
+    public double getCostePorGBRam() {
+        return costePorGBRam;
+    }
+
+    public void setCostePorGBRam(double costePorGBRam) {
+        this.costePorGBRam = costePorGBRam;
+    }
+
+   @Override
+   public double calcularPrecio(){
+       double precioBase = super.calcularPrecio();
+       return precioBase + (ram * costePorGBRam);
+   }
+
+    @Override
+    public String toString() {
+        return "Aplicaciones{" + "ram=" + ram + ", costePorGBRam=" + costePorGBRam + "precio total=" + calcularPrecio() + '}';
+    }
+    
+}
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ *
+ * @author milio
+ */
+public class Servidor {
+    
+    private Set<Servicio> servicios;
+    
+    public Servidor(){
+        this.servicios = new LinkedHashSet<>();
+    }
+    
+    public boolean agregarServicio(Servicio servicio){
+        return servicios.add(servicio);
+    }
+    
+    public Servicio buscarServicioPorNombre(String nombre){
+        for(Servicio servicio : servicios){
+            if(servicio.getNombre().equalsIgnoreCase(nombre)){
+                return servicio;
+            }
+        }
+        return null;
+    }
+    
+    public boolean eliminarServicioPorNombre(String nombre){
+        return servicios.removeIf(servicio -> servicio.getNombre().equalsIgnoreCase(nombre));
+    }
+    
+    public void mostrarServicios(){
+        for (Servicio servicio : servicios){
+            System.out.println(servicio);
+        }
+    }
+    
+    public double getTotalFacturacion(){
+        double total = 0.0;
+        for (Servicio servicio : servicios){
+            total += servicio.calcularPrecio();
+        }
+        return total;
+    }
+    
+    public List<ResumenServicio> crearResumenServicios(){
+        List<ResumenServicio> resumen = new ArrayList<>();
+        for (Servicio servicio : servicios){
+            resumen.add(new ResumenServicio(servicio.getNombre(), servicio.calcularPrecio()));
+            
+        }        
+        return resumen;
+    }
+    public Set<Servicio> getServicios(){
+        return servicios;
+    }
+}
+
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parcial2;
+
+/**
+ *
+ * @author milio
+ */
+public class ResumenServicio {
+    private String nombre;
+    private double coste;
+
+    public ResumenServicio(String nombre, double coste) {
+        this.nombre = nombre;
+        this.coste = coste;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getCoste() {
+        return coste;
+    }
+
+    public void setCoste(double coste) {
+        this.coste = coste;
+    }
+
+    @Override
+    public String toString() {
+        return "ResumenServicio{" + "nombre=" + nombre + ", coste=" + coste + '}';
+    }
+    
+}
+
+

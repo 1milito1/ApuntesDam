@@ -1,0 +1,30 @@
+ENTORNOS DE DESARROLLO: TAREA 1.1
+
+(Para realizar esta Tarea siga como guía los dos Ejemplos de los Recursos de la Unidad)
+
+Un familiar de Ada, la supervisora de proyectos de BK Programación, regenta una farmacia. Le ha pedido a Ada que le desarrolle una aplicación que le ayude en la gestión de la farmacia. Esta gestión se describe seguidamente.
+La principal función   es la dispensación de medicamentos. Esta dispensación puede ser de dos modalidades:
+Productos sin receta que son vendidos mediante el abono íntegro del importe por parte del cliente.
+Productos con receta en los que los clientes sólo abonan parte del importe del medicamento.
+Para las recetas es necesario generar un listado con los datos del cliente (número de afiliación a la seguridad social o mutua correspondiente) y el medicamento que se le ha dispensado. Este listado se envía a los servicios centrales del Servicio Extremeño de Salud (SES) por vía telemática.
+En cualquier caso hay que generar un cuadrante de caja diario con los importes ingresados que sirva como contabilidad.
+Cada día es necesario reponer los productos vendidos para lo cual al final del día se debe generar un listado con la relación de todos los artículos vendidos cuyo sotck se encuentre bajo mínimo para enviarlo (vía telemática) al centro farmacéutico. Esta entidad enviará al día siguiente los productos pedidos.
+De todos los clientes que pasan por la farmacia, algunos de ellos, tienen abierta una cuenta de gastos de forma que pueden no abonar los productos que retiran. Se desea llevar un control los productos retirados por cada cliente y el importe que deben. Una vez abonado se anotará para evitar volver a reclamar el importe.
+Otra de las funciones que realiza la farmacia es el asesoramiento de los productos recomendados para cada dolencia. Se debe poder tener un registro de esta información que será consultada por el dependiente en el terminal del mostrador.
+Las tareas de cuadrante de caja así como la generación del listado para el SES y el centro farmacéutico sólo deben poder ser realizadas por el titular de la farmacia.
+Se pide:
+Determinar el ciclo de vida apropiado para su desarrollo y justificarlo (2 puntos).
+Realizar la fase de análisis (3 puntos).
+Realizar la fase de diseño (3 puntos).
+Describir brevemente el resto de las fases del ciclo de vida indicando cual es el objetivo y cómo se podría alcanzar (2 puntos).
+
+Recursos necesarios para realizar la tarea.
+Ordenador con procesador de textos (debe ser el Writer del paquete OpenOffice o Word).
+Conexión a internet para enviar la propuesta de solución.
+Indicaciones de entrega.
+Una vez realizada la tarea se elaborará un único documento donde figuren las respuestas. El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes instrucciones:
+apellido1_apellido2_nombre_EDxx_Tarea
+ 
+ 
+El nombre no debe contener la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas para la primera unidad del MP de ED, debería nombrar esta tarea como...
+sanchez_manas_begona_ED01_Tarea

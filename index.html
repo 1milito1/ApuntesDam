@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apuntes DAM • Repositorio Completo de Recursos</title>
+  <meta name="description"
+    content="Plataforma con más de 790 apuntes oficiales, temarios, exámenes anteriores, prácticas y chuletas para el ciclo de Desarrollo de Aplicaciones Multiplataforma (DAM).">
+  <meta name="keywords"
+    content="DAM, Desarrollo de Aplicaciones Multiplataforma, Apuntes DAM, Java, SQL, Bases de Datos, Hibernate, Android, PSP, Python, SGE">
+  <meta name="author" content="Comunidad DAM">
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="brand-badge">DAM</div>
+        <div class="brand-info">
+          <h1>Apuntes DAM</h1>
+          <p>Desarrollo de Aplicaciones Multiplataforma</p>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema de color"
+          title="Alternar modo claro / oscuro">
+          <!-- Populated by JS -->
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-pill">
+      <span>🚀</span>
+      <span>Catálogo Oficial de DAM • 1º, 2º y 3º Curso</span>
+    </div>
+
+    <h1 class="hero-title">
+      Repositorio Central de <span>Apuntes de DAM</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Accede a temarios completos en PDF, exámenes resueltos de cursos anteriores, enunciados de tareas, scripts y
+      chuletas organizadas por asignaturas de DAM.
+    </p>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-docs">--</div>
+        <div class="stat-label">Documentos disponibles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-asignaturas">--</div>
+        <div class="stat-label">Asignaturas cubiertas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-examenes">--</div>
+        <div class="stat-label">Exámenes anteriores</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-tareas">--</div>
+        <div class="stat-label">Prácticas y tareas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="main-container">
+
+    <!-- Interactive Filter & Search Panel -->
+    <section class="filter-panel" aria-label="Búsqueda y filtros">
+      <div class="search-box">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="search" id="search-input" class="search-input"
+          placeholder="Buscar por tema, examen, asignatura, tecnología (Java, SQL, Android, Python...) o palabra clave..."
+          autocomplete="off">
+        <span class="search-shortcut">Ctrl+K</span>
+        <button id="clear-search-btn" class="clear-search-btn" title="Limpiar búsqueda">✕</button>
+      </div>
+
+      <div class="filter-row">
+        <!-- Course Selection Tabs -->
+        <div class="course-tabs" id="course-tabs">
+          <button class="tab-btn active" data-curso="all">Todos los cursos</button>
+          <button class="tab-btn" data-curso="1-dam">1º Curso</button>
+          <button class="tab-btn" data-curso="2-dam">2º Curso</button>
+          <button class="tab-btn" data-curso="3-dam">3º Curso</button>
+        </div>
+
+        <!-- Dropdowns -->
+        <div class="filter-dropdowns">
+          <select id="subject-select" class="custom-select" aria-label="Filtrar por asignatura">
+            <option value="all">Todas las asignaturas</option>
+          </select>
+
+          <select id="format-select" class="custom-select" aria-label="Filtrar por formato">
+            <option value="all">Todos los formatos</option>
+            <option value="pdf">Documentos PDF</option>
+            <option value="docx">Documentos Word (DOCX)</option>
+            <option value="code">Código (Java / Python / SQL / Markdown)</option>
+            <option value="zip">Archivos ZIP / RAR</option>
+          </select>
+
+          <select id="sort-select" class="custom-select" aria-label="Ordenar resultados">
+            <option value="az">Título (A - Z)</option>
+            <option value="subject">Agrupado por Asignatura</option>
+            <option value="recent">Más recientes</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="category-pills" id="category-pills">
+        <button class="cat-pill active" data-cat="all">⚡ Todos los recursos</button>
+        <button class="cat-pill" data-cat="temarios">📖 Temarios y Apuntes</button>
+        <button class="cat-pill" data-cat="examenes">📝 Exámenes Anteriores</button>
+        <button class="cat-pill" data-cat="tareas">💻 Tareas y Prácticas</button>
+        <button class="cat-pill" data-cat="recursos">💡 Chuletas y Ayuda</button>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <div class="results-header">
+      <div class="results-count" id="results-count">Cargando catálogo de apuntes...</div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="cards-grid">
+      <!-- Populated dynamically via JS -->
+    </div>
+
+    <!-- Load More Button -->
+    <div id="load-more-container" style="text-align: center; margin-top: 2.5rem; display: none;">
+      <button id="btn-load-more" class="btn-pill btn-primary" style="padding: 0.75rem 2rem; font-size: 0.95rem;">
+        Cargar más documentos ↓
+      </button>
+    </div>
+
+
+
+
+  </main>
+
+  <!-- Modal Preview Dialog -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-info">
+          <h3 id="modal-title">Título del Documento</h3>
+          <p id="modal-sub">Curso • Asignatura • Categoría</p>
+        </div>
+        <div class="modal-header-actions">
+          <button id="modal-copy-btn" class="btn-pill" title="Copiar texto o código al portapapeles">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span>Copiar</span>
+          </button>
+          <a id="modal-download-btn" href="#" download class="btn-pill btn-primary"
+            title="Descargar archivo en tu equipo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Descargar</span>
+          </a>
+          <button id="modal-close-btn" class="btn-icon" aria-label="Cerrar ventana emergente">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body" id="modal-body">
+        <!-- Rendered markdown or iframe code -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal Dialog -->
+  <div class="modal-backdrop" id="contact-modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 540px;">
+      <div class="modal-header">
+        <div class="modal-header-info">
+          <h3 id="contact-modal-heading">✉️ Formulario de Contacto</h3>
+          <p>Envía tus dudas, consultas o enlaces a nuevos apuntes</p>
+        </div>
+        <button id="contact-modal-close-btn" class="btn-icon" aria-label="Cerrar">✕</button>
+      </div>
+
+      <!-- Hidden iframe to process submission silently without opening any app or navigating away -->
+      <iframe name="contact_hidden_iframe" id="contact_hidden_iframe" style="display:none;" title="Submission Frame"></iframe>
+
+      <form 
+        id="contact-form" 
+        action="https://formsubmit.co/militoappdev@gmail.com" 
+        method="POST" 
+        target="contact_hidden_iframe"
+        style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem;"
+      >
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" id="contact-hidden-subject" value="Nuevo mensaje desde Apuntes DAM">
+
+        <div>
+          <label for="contact-sender" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">
+            ¿Quién lo envía? (Nombre o correo de contacto) *
+          </label>
+          <input 
+            type="text" 
+            id="contact-sender" 
+            name="Remitente"
+            class="search-input" 
+            style="height: 44px; padding: 0 1rem;" 
+            placeholder="Ej: Marcos Ruiz (marcos@gmail.com)" 
+            required
+          >
+        </div>
+
+        <div>
+          <label for="contact-title" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">
+            Título / Asunto *
+          </label>
+          <input 
+            type="text" 
+            id="contact-title" 
+            name="Asunto"
+            class="search-input" 
+            style="height: 44px; padding: 0 1rem;" 
+            placeholder="Ej: Aportación de apuntes Tema 3 o consulta sobre examen" 
+            required
+          >
+        </div>
+
+        <div>
+          <label for="contact-message" style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">
+            Mensaje *
+          </label>
+          <textarea 
+            id="contact-message" 
+            name="Mensaje"
+            class="search-input" 
+            style="height: 120px; padding: 0.85rem 1rem; resize: vertical; line-height: 1.5;" 
+            placeholder="Escribe aquí tu consulta, sugerencia o enlaces de descarga a documentos..." 
+            required
+          ></textarea>
+        </div>
+
+        <div id="contact-status" style="font-size: 0.85rem; display: none; padding: 0.75rem; border-radius: var(--radius-sm);"></div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 0.5rem;">
+          <button type="button" id="btn-cancel-contact" class="btn-pill" style="padding: 0.6rem 1.25rem;">
+            Cancelar
+          </button>
+          <button type="submit" id="btn-submit-contact" class="btn-pill btn-primary" style="padding: 0.6rem 1.5rem;">
+            Enviar Mensaje
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="alert">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+    <span id="toast-msg">Mensaje de notificación</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-copy">
+        <p><strong>Apuntes DAM</strong> • Creado para el Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones
+          Multiplataforma.</p>
+        <p style="color: var(--text-dim); margin-top: 0.25rem;">MilitoDev, contacto: militoappdev@gmail.com</p>
+      </div>
+      <div class="footer-links">
+        <button type="button" id="btn-open-contact" class="btn-pill" style="font-size: 0.8rem; cursor: pointer;" title="Abrir formulario de contacto">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span>Contacto</span>
+        </button>
+        <a href="https://wa.me/emilio_ge" target="_blank" rel="noopener noreferrer" class="btn-pill" style="font-size: 0.8rem;" title="Contactar por WhatsApp con @emilio_ge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+          <span>WhatsApp (@emilio_ge)</span>
+        </a>
+        <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="btn-pill"
+          style="font-size: 0.8rem;">Volver arriba ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

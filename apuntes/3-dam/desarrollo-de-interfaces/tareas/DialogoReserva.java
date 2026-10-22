@@ -1,0 +1,846 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package tarea1padelapp;
+
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerListModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
+import org.netbeans.validation.api.ui.ValidationGroup;
+
+/**
+ *
+ * @author milio
+ */
+public class DialogoReserva extends javax.swing.JDialog {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogoReserva.class.getName());
+    public GestionBBDD gestionBBDD;
+    
+    int xMouse, yMouse;
+   
+    public javax.swing.JTextField getTxtNombre() {return txtNombre;};
+    public javax.swing.JTextField getTxtTlf() {return txtTlf;};
+    public javax.swing.JButton getBtnEnviar() {return btnEnviar;};
+    public javax.swing.JRadioButton getRadAmistoso(){return radAmistoso;};
+    public javax.swing.JSpinner getSpnNivel(){return spnNivel;};
+    public javax.swing.JCheckBox getCbAbierto() {return cbAbierto;};
+    
+    
+    
+    public DialogoReserva(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        btnEnviar.setEnabled(false);
+        ValidationGroup group = vpError.getValidationGroup();
+        group.add(txtNombre, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        group.add(txtTlf, StringValidators.REQUIRE_VALID_INTEGER);
+        group.add(txtTlf, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        vpError.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+                if (vpError.getProblem()==null){
+                    btnEnviar.setEnabled(true);
+                }else{
+                    btnEnviar.setEnabled(false);
+                }
+            }
+        });
+        
+        comboPrefijo.addItem("España");
+        comboPrefijo.addItem("Francia");
+        comboPrefijo.addItem("Italia");
+        comboPrefijo.addItem("Portugal");
+        
+        txtPrefijo.setText("+34");
+        
+        txtPrefijo.setEditable(false);
+        
+        SpinnerDateModel fechaModel = new SpinnerDateModel(
+        new Date(),
+        null,
+        null,
+        Calendar.DAY_OF_YEAR);
+
+        spnFecha.setModel(fechaModel);
+        
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy");
+        spnFecha.setEditor(editor);
+        
+        String[] horasDisponibles = {"17:00h", "18:30h", "20:00h", "21:30h"};
+        SpinnerListModel horaModel = new SpinnerListModel (horasDisponibles);
+        
+        spnHora.setModel(horaModel);
+        
+        
+        String[] niveles = {"Iniciación", "Medio", "Medio-Alto", "Alto"};
+        SpinnerListModel nivelModel = new SpinnerListModel(niveles);
+        spnNivel.setModel(nivelModel);
+        
+        spnNivel.setEnabled(false);
+        cbAbierto.setEnabled(false);
+        spnPlazas.setEnabled(false);
+        
+        
+        btnGroup.add(radClase);
+        btnGroup.add(radLiga);
+        btnGroup.add(radAmistoso);
+        
+        radClase.setSelected(true);
+
+        
+        ImageIcon calendario = new ImageIcon(getClass().getResource("/tarea1padelapp/Imagenes/calendario.png"));
+        Image calEsc = calendario.getImage().getScaledInstance(lblCalendario.getWidth(), lblCalendario.getHeight(), Image.SCALE_SMOOTH);
+        Icon icCal = new ImageIcon(calEsc);
+        lblCalendario.setIcon(icCal);
+        
+        ImageIcon reloj = new ImageIcon(getClass().getResource("/tarea1padelapp/Imagenes/reloj.png"));
+        Image relEsc = reloj.getImage().getScaledInstance(lblReloj.getWidth(),lblReloj.getHeight(), Image.SCALE_SMOOTH);
+        Icon icRel = new ImageIcon(relEsc);
+        lblReloj.setIcon(icRel);
+        
+        try {
+            File fichero = new File("help/helpset.hs");
+            URL hsURL = fichero.toURI().toURL();
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+            HelpBroker hb = helpset.createHelpBroker(); // Aquí se crea la variable hb
+
+            // Ahora ya no marcará error
+            hb.enableHelpKey(this.getContentPane(), "ventana_reserva", helpset);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        btnGroup = new javax.swing.ButtonGroup();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jPanel2 = new javax.swing.JPanel();
+        pNombre = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblTlf = new javax.swing.JLabel();
+        comboPrefijo = new javax.swing.JComboBox<>();
+        txtPrefijo = new javax.swing.JTextField();
+        txtTlf = new javax.swing.JTextField();
+        lblSilueta = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        pDatos = new javax.swing.JPanel();
+        lblFecha = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
+        lblTipo = new javax.swing.JLabel();
+        spnFecha = new javax.swing.JSpinner();
+        radClase = new javax.swing.JRadioButton();
+        radLiga = new javax.swing.JRadioButton();
+        radAmistoso = new javax.swing.JRadioButton();
+        spnHora = new javax.swing.JSpinner();
+        sep1 = new javax.swing.JSeparator();
+        lblNivel = new javax.swing.JLabel();
+        spnNivel = new javax.swing.JSpinner();
+        lblAbierto = new javax.swing.JLabel();
+        cbAbierto = new javax.swing.JCheckBox();
+        lblPlazas = new javax.swing.JLabel();
+        spnPlazas = new javax.swing.JSpinner();
+        lblCalendario = new javax.swing.JLabel();
+        lblReloj = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
+        jPanelHeader = new javax.swing.JPanel();
+        jPanelCerrar = new javax.swing.JPanel();
+        jLabelCerrar = new javax.swing.JLabel();
+        jPanelTitulo = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        vpError = new org.netbeans.validation.api.ui.swing.ValidationPanel();
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Datos de la reserva");
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pNombre.setBackground(new java.awt.Color(249, 249, 249));
+        pNombre.setToolTipText("panelNombre");
+        pNombre.setName("Teléfono"); // NOI18N
+
+        lblNombre.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblNombre.setLabelFor(lblNombre);
+        lblNombre.setText("NOMBRE:");
+        lblNombre.setToolTipText("lblNombre");
+
+        txtNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(153, 153, 153));
+        txtNombre.setToolTipText("txtNombre");
+        txtNombre.setBorder(null);
+        txtNombre.setName("Nombre"); // NOI18N
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNombreMouseClicked(evt);
+            }
+        });
+
+        lblTlf.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblTlf.setText("TELÉFONO:");
+        lblTlf.setToolTipText("lblTlf");
+
+        comboPrefijo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        comboPrefijo.setToolTipText("comboPrefijo");
+        comboPrefijo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboPrefijo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPrefijoActionPerformed(evt);
+            }
+        });
+
+        txtPrefijo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtPrefijo.setText("txtPrefijo");
+        txtPrefijo.setToolTipText("txtPrefijo");
+        txtPrefijo.setEnabled(false);
+        txtPrefijo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrefijoActionPerformed(evt);
+            }
+        });
+
+        txtTlf.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtTlf.setForeground(new java.awt.Color(153, 153, 153));
+        txtTlf.setToolTipText("txtTlf");
+        txtTlf.setBorder(null);
+        txtTlf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTlfMouseClicked(evt);
+            }
+        });
+
+        lblSilueta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSilueta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tarea1padelapp/Imagenes/siluetaPadel_resized.png"))); // NOI18N
+        lblSilueta.setToolTipText("lblSilueta");
+
+        javax.swing.GroupLayout pNombreLayout = new javax.swing.GroupLayout(pNombre);
+        pNombre.setLayout(pNombreLayout);
+        pNombreLayout.setHorizontalGroup(
+            pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNombreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblTlf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addGroup(pNombreLayout.createSequentialGroup()
+                        .addComponent(comboPrefijo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPrefijo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTlf, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
+                .addGap(18, 18, 18)
+                .addComponent(lblSilueta, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+        pNombreLayout.setVerticalGroup(
+            pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pNombreLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSilueta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pNombreLayout.createSequentialGroup()
+                        .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTlf)
+                            .addComponent(comboPrefijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPrefijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTlf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
+        );
+
+        jPanel2.add(pNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 500, 100));
+
+        pDatos.setBackground(new java.awt.Color(249, 247, 247));
+        pDatos.setToolTipText("pDatos");
+
+        lblFecha.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblFecha.setText("FECHA DE LA RESERVA:");
+        lblFecha.setToolTipText("lblFecha");
+
+        lblHora.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblHora.setText("HORA DE LA RESERVA:");
+        lblHora.setToolTipText("lblHora");
+
+        lblTipo.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblTipo.setText("TIPO DE RESERVA:");
+        lblTipo.setToolTipText("lblTipo");
+
+        spnFecha.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        spnFecha.setToolTipText("spnFecha");
+
+        radClase.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        radClase.setText("Clase");
+        radClase.setToolTipText("radClase");
+        radClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radClaseActionPerformed(evt);
+            }
+        });
+
+        radLiga.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        radLiga.setText("Liga");
+        radLiga.setToolTipText("radLiga");
+        radLiga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radLigaActionPerformed(evt);
+            }
+        });
+
+        radAmistoso.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        radAmistoso.setText("Amistoso");
+        radAmistoso.setToolTipText("radAmistoso");
+        radAmistoso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radAmistosoActionPerformed(evt);
+            }
+        });
+
+        spnHora.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        spnHora.setToolTipText("spnHora");
+
+        sep1.setToolTipText("separador1");
+
+        lblNivel.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblNivel.setText("Nivel de partido amistoso");
+        lblNivel.setToolTipText(" lblNivel");
+
+        spnNivel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        spnNivel.setToolTipText("spnNivel");
+
+        lblAbierto.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblAbierto.setText("Partido abierto");
+        lblAbierto.setToolTipText("lblPartido");
+
+        cbAbierto.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cbAbierto.setToolTipText("cbAbierto");
+        cbAbierto.setLabel("Los jugadores se pueden apuntar desde la web");
+        cbAbierto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAbiertoActionPerformed(evt);
+            }
+        });
+
+        lblPlazas.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblPlazas.setText("Número de plazas libres");
+        lblPlazas.setToolTipText("lblPlazas");
+
+        spnPlazas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        spnPlazas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 3, 1));
+        spnPlazas.setToolTipText("spnPlazas");
+
+        lblCalendario.setToolTipText("lblCalendario");
+
+        lblReloj.setToolTipText("lblReloj");
+
+        javax.swing.GroupLayout pDatosLayout = new javax.swing.GroupLayout(pDatos);
+        pDatos.setLayout(pDatosLayout);
+        pDatosLayout.setHorizontalGroup(
+            pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sep1)
+            .addGroup(pDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDatosLayout.createSequentialGroup()
+                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spnPlazas)
+                            .addComponent(spnNivel)
+                            .addComponent(cbAbierto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblAbierto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPlazas, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDatosLayout.createSequentialGroup()
+                        .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pDatosLayout.createSequentialGroup()
+                                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pDatosLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(spnHora, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48))
+                                    .addGroup(pDatosLayout.createSequentialGroup()
+                                        .addGap(42, 42, 42)
+                                        .addComponent(radClase, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(radLiga, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(radAmistoso)
+                                        .addGap(22, 22, 22))))
+                            .addGroup(pDatosLayout.createSequentialGroup()
+                                .addComponent(lblFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(36, 36, 36))))
+        );
+        pDatosLayout.setVerticalGroup(
+            pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFecha)
+                        .addComponent(spnFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblHora)
+                        .addComponent(spnHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblReloj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipo)
+                    .addComponent(radClase)
+                    .addComponent(radLiga, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radAmistoso, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sep1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNivel)
+                    .addComponent(spnNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAbierto)
+                    .addComponent(cbAbierto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPlazas)
+                    .addComponent(spnPlazas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        spnPlazas.getAccessibleContext().setAccessibleParent(spnPlazas);
+
+        jPanel2.add(pDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 500, 240));
+
+        btnVolver.setBackground(new java.awt.Color(0, 102, 204));
+        btnVolver.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("CANCELAR");
+        btnVolver.setToolTipText("btnVolver");
+        btnVolver.setBorder(null);
+        btnGroup.add(btnVolver);
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, 90, 30));
+
+        btnEnviar.setBackground(new java.awt.Color(0, 102, 204));
+        btnEnviar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnviar.setText("ENVIAR");
+        btnEnviar.setToolTipText("btnEnviar");
+        btnEnviar.setBorder(null);
+        btnEnviar.setBorderPainted(false);
+        btnGroup.add(btnEnviar);
+        btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 510, 80, 30));
+
+        jPanelHeader.setBackground(new java.awt.Color(0, 102, 204));
+        jPanelHeader.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelHeaderMouseDragged(evt);
+            }
+        });
+        jPanelHeader.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelHeaderMousePressed(evt);
+            }
+        });
+
+        jPanelCerrar.setBackground(new java.awt.Color(0, 102, 204));
+
+        jLabelCerrar.setBackground(new java.awt.Color(0, 102, 204));
+        jLabelCerrar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabelCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCerrar.setText("X");
+        jLabelCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCerrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCerrarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelCerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelCerrarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelCerrarLayout = new javax.swing.GroupLayout(jPanelCerrar);
+        jPanelCerrar.setLayout(jPanelCerrarLayout);
+        jPanelCerrarLayout.setHorizontalGroup(
+            jPanelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCerrarLayout.createSequentialGroup()
+                .addComponent(jLabelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+        jPanelCerrarLayout.setVerticalGroup(
+            jPanelCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelHeaderLayout = new javax.swing.GroupLayout(jPanelHeader);
+        jPanelHeader.setLayout(jPanelHeaderLayout);
+        jPanelHeaderLayout.setHorizontalGroup(
+            jPanelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHeaderLayout.createSequentialGroup()
+                .addGap(0, 515, Short.MAX_VALUE)
+                .addComponent(jPanelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelHeaderLayout.setVerticalGroup(
+            jPanelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHeaderLayout.createSequentialGroup()
+                .addComponent(jPanelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
+
+        jPanelTitulo.setBackground(new java.awt.Color(0, 102, 204));
+
+        jLabelTitulo.setBackground(new java.awt.Color(0, 102, 204));
+        jLabelTitulo.setFont(new java.awt.Font("Roboto Black", 0, 46)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Registrar Reserva");
+
+        javax.swing.GroupLayout jPanelTituloLayout = new javax.swing.GroupLayout(jPanelTitulo);
+        jPanelTitulo.setLayout(jPanelTituloLayout);
+        jPanelTituloLayout.setHorizontalGroup(
+            jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addGap(50, 50, 50))
+        );
+        jPanelTituloLayout.setVerticalGroup(
+            jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTituloLayout.createSequentialGroup()
+                .addGap(0, 16, Short.MAX_VALUE)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(jPanelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 110));
+
+        vpError.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(vpError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 500, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void radClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radClaseActionPerformed
+        // TODO add your handling code here:
+        desactivarCamposAmistoso();
+    }//GEN-LAST:event_radClaseActionPerformed
+
+    private void radLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radLigaActionPerformed
+        // TODO add your handling code here:
+        desactivarCamposAmistoso();
+    }//GEN-LAST:event_radLigaActionPerformed
+
+    private void radAmistosoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radAmistosoActionPerformed
+        // TODO add your handling code here:
+        boolean esAmistoso = radAmistoso.isSelected();
+        
+        spnNivel.setEnabled(esAmistoso);
+        cbAbierto.setEnabled(esAmistoso);
+        
+        spnPlazas.setEnabled(cbAbierto.isSelected()&& esAmistoso);
+    }//GEN-LAST:event_radAmistosoActionPerformed
+
+    private void cbAbiertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAbiertoActionPerformed
+        // TODO add your handling code here:
+        boolean estaMarcado = cbAbierto.isSelected();
+        
+        spnPlazas.setEnabled(estaMarcado);
+    }//GEN-LAST:event_cbAbiertoActionPerformed
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        // TODO add your handling code here:
+        java.net.URL urlImagen = getClass().getResource("/tarea1padelapp/Imagenes/padel.png");
+        
+        
+        if (urlImagen !=null){
+            ImageIcon icono = new ImageIcon(urlImagen);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "¡Reserva de pista de pádel realizada con éxito! \n" + txtNombre.getText(),
+                    "Reserva Confirmada",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    icono);
+        }else {
+            System.err.println("Error: Imagen de icono no encontrada");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "¡Reserva de pista de pádel realizada con éxito!",
+                    "Reserva Confirmada",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+        if (this.gestionBBDD != null){
+            this.gestionBBDD.guardarReservas(txtNombre.getText(), txtTlf.getText());
+        }
+        
+        JOptionPane.showMessageDialog(this, "Reserva realizada con éxito: " + txtNombre.getText());
+        
+        limpiarCampos();
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void txtPrefijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrefijoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtPrefijoActionPerformed
+
+    private void comboPrefijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPrefijoActionPerformed
+        // TODO add your handling code here:
+        String paisSeleccionado = (String) comboPrefijo.getSelectedItem();
+        String prefijo = "";
+
+        switch (paisSeleccionado) {
+            case "España":
+            prefijo="+34";
+            break;
+            case "Francia":
+            prefijo = "+33";
+            break;
+            case "Italia":
+            prefijo = "+39";
+            break;
+            case "Portugal":
+            prefijo = "+351";
+            break;
+            default:
+            prefijo = "";
+            break;
+        }
+
+        txtPrefijo.setText(prefijo);
+    }//GEN-LAST:event_comboPrefijoActionPerformed
+
+    private void jPanelHeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelHeaderMousePressed
+
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+        
+    }//GEN-LAST:event_jPanelHeaderMousePressed
+
+    private void jPanelHeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelHeaderMouseDragged
+        
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse,y - yMouse);
+
+    }//GEN-LAST:event_jPanelHeaderMouseDragged
+
+    private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabelCerrarMouseClicked
+
+    private void jLabelCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseEntered
+        jPanelCerrar.setBackground(Color.red);
+    }//GEN-LAST:event_jLabelCerrarMouseEntered
+
+    private void jLabelCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseExited
+        jPanelCerrar.setBackground(new Color(0,102,204));
+    }//GEN-LAST:event_jLabelCerrarMouseExited
+
+    private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
+        if(txtNombre.getText().equals("Introduce tu nombre")){
+        txtNombre.setText("");
+        txtNombre.setForeground(Color.black);}
+        
+    }//GEN-LAST:event_txtNombreMouseClicked
+
+    private void txtTlfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTlfMouseClicked
+        if(txtTlf.getText().equals("666666666")){
+        txtTlf.setText("");
+        txtTlf.setForeground(Color.black);}
+    }//GEN-LAST:event_txtTlfMouseClicked
+
+    private void limpiarCampos(){
+        txtNombre.setText("");
+        txtTlf.setText("");
+        radClase.setSelected(true);
+        spnFecha.setValue(new Date());
+        spnHora.setValue(spnHora.getModel().getValue());
+        desactivarCamposAmistoso();
+    }
+    private void desactivarCamposAmistoso(){
+        spnNivel.setEnabled(false);
+        cbAbierto.setEnabled(false);
+        spnPlazas.setEnabled(false);
+        
+        cbAbierto.setSelected(false);
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Locale.setDefault(new Locale("es", "ES"));
+                DialogoReserva dialog = new DialogoReserva(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+        
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnviar;
+    private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JCheckBox cbAbierto;
+    private javax.swing.JComboBox<String> comboPrefijo;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabelCerrar;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelCerrar;
+    private javax.swing.JPanel jPanelHeader;
+    private javax.swing.JPanel jPanelTitulo;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblAbierto;
+    private javax.swing.JLabel lblCalendario;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblNivel;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPlazas;
+    private javax.swing.JLabel lblReloj;
+    private javax.swing.JLabel lblSilueta;
+    private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblTlf;
+    private javax.swing.JPanel pDatos;
+    private javax.swing.JPanel pNombre;
+    private javax.swing.JRadioButton radAmistoso;
+    private javax.swing.JRadioButton radClase;
+    private javax.swing.JRadioButton radLiga;
+    private javax.swing.JSeparator sep1;
+    private javax.swing.JSpinner spnFecha;
+    private javax.swing.JSpinner spnHora;
+    private javax.swing.JSpinner spnNivel;
+    private javax.swing.JSpinner spnPlazas;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPrefijo;
+    private javax.swing.JTextField txtTlf;
+    private org.netbeans.validation.api.ui.swing.ValidationPanel vpError;
+    // End of variables declaration//GEN-END:variables
+}

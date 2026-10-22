@@ -1,0 +1,5 @@
+001Juan      Pérez     18000
+002Ana       Gómez     21000
+003Luis      Martín    25000
+004Clara     Díaz      23000
+023Emilio    Garcia    30000

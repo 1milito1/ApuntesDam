@@ -1,0 +1,12 @@
+Mensaje Post-Instalación
+Ventana: "¡Listo para el Saque!"
+¡Instalación Completada con Éxito!
+El sistema Pádel Pro-Sync ya está configurado y funcionando en tu equipo. Hemos optimizado la base de datos para que la respuesta sea más rápida que una bandeja de Ale Galán.
+¿Qué quieres hacer ahora?
+1.
+Configurar tus Pistas: Define los horarios, precios de hora valle/punta y el tiempo de cortesía.
+2.
+Importar Jugadores: Si tienes un Excel con tus socios, súbelo ahora y dales la bienvenida automáticamente.
+3.
+Tour Rápido: Deja que te enseñemos cómo funciona el panel de control en 2 minutos.
+Consejo Pro: No olvides configurar el envío automático de emails. A tus jugadores les encanta recibir la confirmación de su pista con el código de acceso al club.

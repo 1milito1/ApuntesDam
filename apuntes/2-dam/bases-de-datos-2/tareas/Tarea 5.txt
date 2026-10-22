@@ -1,0 +1,182 @@
+
+Tarea 5
+Requisitos de finalización
+Apertura: martes, 1 de abril de 2025, 13:20
+ 
+En Primer lugar descarga el script que  crea las tabas (con datos) que necesitarás para realizar la tarea (DANA.sql). Al igual que en la tarea anterior, deberás cargar el script y ejecutarlo.
+
+ 
+
+En esta tarea podrás observar que las inserciones, modificaciones y borrado de datos pueden hacerse tanto en modo gráfico (con el entorno que instalaste en la primera unidad) como a través de comandos.
+
+ 
+
+¡Empezamos! Piensa que si alguna vez te equivocas puedes restaurar todo ejecutando de nuevo el script. Se encargará de borrar las tablas, crearlas de nuevo y cargarlas con datos para poder ejecutar los enunciados.
+
+ 
+
+Y una advertencia, en esta versión gratuita (Oracle 11g) para evitar problemas y evitar pérdidas de tiempo, introduce las fechas (sólo son cuatro) en el formato mm/dd/yyyy (es decir, mes, día y año).
+
+ 
+
+Vamos a imaginar que se trata de una base de datos para controlar las intervenciones tras una emergencia. Tendremos TRANSPORTISTAS, que trasladarán a los ALCALDES de las distintas COMARCAS afectadas para tomar medidas (transportar alimentos, medicamentos, personas...)
+
+ 
+
+LA TAREA SE REDACTA CON FINES DIDÁCTICOS. No tratéis de encontrar explicación lógica al desarrollo de algunos enunciados. Sólo es para practicar lo trabajado en la unidad.
+
+ 
+
+Inserta un registro nuevo en la tabla TRANSPORTISTA utilizando la herramienta gráfica Application Express que ofrece Oracle Database Express (Data/Insert Row). Los datos deben ser los siguientes:
+Codigo: 1
+Nombre: Fernando  (Pon este dato igual, lo utilizarás más tarde)
+Apellidos: Alonso Alonso
+DNI: 11111111A
+Experto: Comarca-1
+Fecha_Nac: 28/07/1965 (PONER 07/28/1965)
+Antigüedad: 17    (Supongamos que es el tiempo que lleva como conductor)
+Debes entregar una captura de pantalla de la ventana en la que estás introduciendo los datos, justo antes de pulsar el botón para guardar los datos.
+
+Inserta varios registros más en la tabla TRANSPORTISTA utilizando sentencias SQL. En la entrega de la tarea debes copiar las sentencias que has utilizado. Los datos deben ser los siguientes:
+Tabla PROFESOR
+
+Código
+
+Nombre
+
+Apellidos
+
+DNI
+
+Especialidad
+
+Fecha_Nac
+
+Ant.
+
+2
+
+Carlos
+
+Sainz Sainz
+
+22222222B
+
+Comarca -2
+
+31/03/1991
+
+6
+
+3
+
+Lando
+
+Norris Norris
+
+33333333C
+
+Comarca -3
+
+11/04/1987
+
+5
+
+4
+
+Óscar
+
+Piastri Piastri
+
+44444444D
+
+Comarca -4
+
+27/06/1985
+
+ 
+5
+
+George
+
+Rusell Rusell
+
+55555555E
+
+Comarca -5
+
+ 	 
+Los datos que aparecen en blanco no deben utilizarse en las sentencias INSERT.
+
+Modifica los registros de la tabla COMARCA para asignar a cada comarca un transportista responsable, conocedor o especialista de dicha comarca. Utiliza para ello la herramienta gráfica, entregando con la tarea una captura de pantalla de la pestaña Datos de esa tabla, donde se aprecien todos los cambios que has realizado. El TRANSPORTISTA que debes asignar a cada COMARCA es:
+Tabla MUNICIPIO
+
+Codigo
+
+Cod_transportista
+
+1
+
+1
+
+2
+
+1
+
+3
+
+2
+
+4
+
+2
+
+5
+
+3
+
+6
+
+3
+
+Modifica el registro del transportista “Lando" (CÓDIGO, 3), usando sentencias SQL, y cambia su fecha de nacimiento a "30/04/1972" y la antigüedad a 7. En la entrega de la tarea debes copiar la sentencia SQL que has utilizado.
+Modifica las ANTIGÜEDADES de todos los TRANSPORTISTAS incrementándolas en 1 en todos los registros. Debes hacerlo usando una sola sentencia SQL que debes copiar para la entrega de la tarea. Observa que al sumar un dato numérico a un dato NULL sigue siendo NULL.
+Elimina, de la tabla COMARCA, el registro de la COMARCA que tiene el CÓDIGO 6. Debes realizar esta acción desde la herramienta gráfica. Debes entregar una captura de pantalla de la ventana en la que vas a borrar el registro, justo antes de pulsar el botón Aceptar para confirmar el borrado.
+Elimina, de la tabla ALCALDE, aquellos registros asociados a la COMARCA con código 3 (COD_COMARCA). Debes hacerlo usando una sola sentencia SQL que debes copiar para la entrega de la tarea. Si todo ha ido bien, se borrarán 14 registros.
+Inserta los registros de la tabla ALCALDE_NUEVO en la tabla ALCALDE. Debes hacerlo usando una sola sentencia SQL que debes copiar para la entrega de la tarea. Deben insertarse 30 registros, los de ALCALDE_NUEVO.
+En la tabla COMARCA, actualiza el campo MAX_ALCALDE de las tuplas  con CÓDIGO=2, asignándole el valor correspondiente al número total alcaldes mujeres (‘M’) que hay en la tabla ALCALDE. Supón que este campo (MAX_ALCALDE) es utilizado para conocer el número máximo de ALCALDES  que pueden visitar la COMARCA. En nuestro caso y por cuestiones didácticas, sólo alcaldesas. Lógicamente, sólo un registro (el que posee CODIGO=2) actualizará este dato. Personas (alcaldesas) que harán el viaje a esa comarca para analizar los desastres de la DANA.
+Elimina de la tabla ALCALDE todos los registros asociados a las COMARCAS cuyo TRANSPORTISTA tiene por nombre "Fernando".
+Criterios de puntuación. Total 10 puntos.
+Ejercicios (total 10 puntos):
+
+0,5 puntos.
+1 punto.
+0,5 puntos.
+0,5 puntos.
+1 punto.
+0,5 puntos.
+1 punto.
+1 punto.
+2 puntos.
+2 puntos.
+Recursos necesarios para realizar la Tarea.
+Oracle Database Express
+
+Archivo: DNA.sql aportado (script)
+Consejos y recomendaciones.
+Es recomendable hacer los ejercicios en el orden en el que están indicados, ya que en algunos casos, para resolver el ejercicio es necesario haber realizado alguno anterior.
+
+Si por equivocación, o haciendo pruebas, has modificado o eliminado datos que posteriormente te resultan necesarios, puedes cargar el archivo con los comandos iniciales para empezar de cero.
+
+Introducir las fechas (sólo son cuatro) en formato mm/dd/yyyy (mes, día y año)
+
+Indicaciones de entrega.
+Una vez realizada la tarea elaborarás un único documento donde figuren las respuestas correspondientes. El envío se realizará a través de la plataforma de la forma establecida para ello, y el archivo se nombrará siguiendo las siguientes pautas:
+
+apellido1_apellido2_nombre_BDxx_Tarea
+
+Asegúrate que el nombre no contenga la letra ñ, tildes ni caracteres especiales extraños. Así por ejemplo la alumna Begoña Sánchez Mañas para la quinta unidad del MP de BD, debería nombrar esta tarea como...
+
+sanchez_manas_begona_BD05_Tarea
+
+DANA.sql DANA.sql

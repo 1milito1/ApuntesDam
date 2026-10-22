@@ -1,0 +1,213 @@
+GUÍA PARA EXAMEN - DISEÑO DE INTERFACES
+1. COMPONENTE PERSONALIZADO (EL BEAN)
+Archivo: TextFieldBean.java
+
+
+Objetivo: Crear un campo que detecte una "Palabra Secreta" configurada desde las propiedades.
+
+Java
+package componentes;
+
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.Serializable;
+
+public class TextFieldBean extends JTextField implements Serializable {
+    
+    // Propiedad pedida (1 punto) [cite: 18]
+    private String palabraSecreta = "";
+
+    public TextFieldBean() {
+        super();
+        // Redefinir KeyReleased (2 puntos) [cite: 19]
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                comprobarPalabra();
+            }
+        });
+    }
+
+    // Getters y Setters necesarios para ser Bean [cite: 18]
+    public String getPalabraSecreta() { return palabraSecreta; }
+    public void setPalabraSecreta(String palabraSecreta) { this.palabraSecreta = palabraSecreta; }
+
+    private void comprobarPalabra() {
+        String textoActual = this.getText();
+        if (palabraSecreta != null && !palabraSecreta.isEmpty() && textoActual.equals(palabraSecreta)) {
+            this.setText("prohibido escribir esta palabra"); // [cite: 19, 21]
+        }
+    }
+}
+Pasos en NetBeans:
+
+Clic derecho en el archivo -> Clean and Build.
+
+Clic derecho en el archivo -> Tools -> Add to Palette -> Selecciona una categoría (ej. Beans).
+
+2. JFRAME PRINCIPAL (CONEXIÓN Y SALIDA)
+Archivo: VentanaPrincipal.java
+
+
+Botón Salir (1.5 puntos): 
+
+
+Propiedad ToolTip: Busca en el inspector de propiedades toolTipText y escribe: "pulsa para salir de la aplicación".
+
+
+Código: System.exit(0);.
+
+
+Abrir Diálogo (1 punto): 
+
+Java
+private void btnEligePalabraActionPerformed(ActionEvent evt) {
+    MiDialogo dialog = new MiDialogo(this, true); // true = modal 
+    dialog.setLocationRelativeTo(null); // Centrar
+    dialog.setVisible(true);
+}
+
+Importante: Selecciona el JLabelDestino, ve a Propiedades -> Code -> Variable Modifiers y cámbialo a public para que el diálogo pueda escribir en él.
+
+3. JDIALOG (CAPTURA DE DATOS)
+Archivo: MiDialogo.java
+
+
+Elementos: Arrastra tu TextFieldBean desde la paleta.
+
+
+Configurar Palabra Secreta: En las propiedades del Bean en el diseño, busca palabraSecreta y pon "sol" (o la que quieras).
+
+
+Botón Cancelar (0.5 puntos): 
+
+Java
+private void btnCancelarActionPerformed(ActionEvent evt) {
+    this.dispose(); // Cierra sin cambios 
+}
+
+Botón Aceptar (1 punto): 
+
+Java
+private void btnAceptarActionPerformed(ActionEvent evt) {
+    // 1. Obtener referencia del padre 
+    VentanaPrincipal padre = (VentanaPrincipal) this.getParent();
+    // 2. Pasar texto al JLabelDestino del padre [cite: 12, 15]
+    padre.jLabelDestino.setText(miTextFieldBean1.getText());
+    // 3. Cerrar 
+    this.dispose();
+}
+4. VALIDACIÓN (UNIDAD 3)
+
+Ubicación: JFrame Principal. Objetivo: Error si está vacío con el mensaje "null may not be empty".
+
+Opción A (Visual):
+
+Arrastra un Validation Panel de la paleta.
+
+Mete el JTextField dentro.
+
+Clic derecho en el TextField -> Validate -> check en Required.
+
+Opción B (Código en constructor después de initComponents):
+
+Java
+ValidationGroup group = validationPanel1.getValidationGroup();
+group.add(jTextFieldValidar, StringValidators.REQUIRE_NON_EMPTY_STRING); // 
+📸 CHECKLIST PARA DOCUMENTACIÓN (PUNTOS EXTRA) 
+
+
+Apartado B: Captura del inspector de propiedades mostrando el toolTipText.
+
+
+Apartado F/G: Captura del código de keyReleased en el Bean.
+
+
+Apartado G: Captura del inspector de propiedades del Bean en el Dialog mostrando la propiedad palabraSecreta.
+
+
+Apartado H: Captura de la aplicación en ejecución con el icono rojo de error activado.
+
+5. INTERACCIÓN DINÁMICA CON EL MOUSE
+
+Objetivo: Cambiar el estado visual (colores, imágenes o texto) cuando el usuario interactúa físicamente con el componente.
+
+A. Cambiar Imagen/Icono al hacer clic
+Ideal para componentes que deben reaccionar visualmente para dar retroalimentación.
+
+Java
+// Dentro del constructor del Bean o en el initComponents del Frame:
+objeto.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        // Cambiar el icono de un JLabel al hacer clic
+        jLabelFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ruta/imagen2.png")));
+    }
+    
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent evt) {
+        // Efecto visual al pasar por encima (Mejora de Usabilidad)
+        objeto.setBackground(java.awt.Color.YELLOW);
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent evt) {
+        // Volver al estado original al salir
+        objeto.setBackground(java.awt.Color.WHITE);
+    }
+});
+B. Detectar Movimiento Relativo (Posición)
+Útil para tareas donde el componente cambia según el desplazamiento del cursor.
+
+Java
+objeto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+    @Override
+    public void mouseMoved(java.awt.event.MouseEvent evt) {
+        // Obtener coordenadas relativas al componente
+        int x = evt.getX();
+        int y = evt.getY();
+        
+        // Ejemplo: Si el ratón baja de cierta altura, cambiar texto
+        if (y > 50) {
+            jLabelDestino.setText("Desplazamiento Vertical Detectado");
+        }
+    }
+});
+
+Añade estos fragmentos a tu material de apoyo para resolver la parte interactiva:
+
+6. Lógica de Arrastre en el Bean (InteractiveLabelBean)
+Java
+public class InteractiveLabelBean extends JLabel implements Serializable {
+    private String textoAlerta = "ALERTA";
+
+    public InteractiveLabelBean() {
+        this.setText("Estado Normal");
+        
+        // Listener interno para autonomía del Bean (Unidad 2)
+        this.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                // Si el ratón se mueve a la derecha (X > 20px)
+                if (evt.getX() > 20) {
+                    setForeground(java.awt.Color.RED); // Cambio de aspecto (Unidad 3)
+                    setText(textoAlerta);
+                }
+            }
+        });
+
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                // Restaurar al soltar el clic (Retroalimentación visual)
+                setForeground(java.awt.Color.BLACK);
+                setText("Estado Normal");
+            }
+        });
+    }
+
+    // Getters y Setters para Introspección (Unidad 2)
+    public String getTextoAlerta() { return textoAlerta; }
+    public void setTextoAlerta(String t) { this.textoAlerta = t; }
+}

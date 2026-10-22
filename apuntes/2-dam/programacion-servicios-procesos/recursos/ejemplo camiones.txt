@@ -1,0 +1,170 @@
+CLASE PRINCIPAL	
+
+
+
+import javax.swing.plaf.TableHeaderUI;
+import java.util.TreeMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class DescargaCamiones {
+
+    private static final int NumeroTolvas = 3;
+    private static final Semaphore [] tolvas = new Semaphore[NumeroTolvas];
+    private static final BlockingQueue<Camiones> colaCamiones = new LinkedBlockingQueue<>();
+    private static final RegistrosLog registrosLog = new RegistrosLog();
+    private static final int [] kilosPorTolvas = new int[NumeroTolvas];
+
+
+    public static void main(String[] args) {
+
+        for (int i = 0; i < NumeroTolvas; i++ ){
+            tolvas[i] = new Semaphore(1);
+        }
+        Thread gestorCola = new Thread(()->{
+           while (true){
+               try {
+                   Camiones camiones = colaCamiones.take();
+                   boolean asignado = false;
+
+                   //indice aleatorio de tovlas si no se pone usa la desocupada de menor valor
+                   int startIndex = (int) (Math.random() * NumeroTolvas);
+
+                   //con indice aleatorio
+                   while (!asignado){
+                       for (int i = 0; i < NumeroTolvas; i++) {
+                        int index = (startIndex + i) % NumeroTolvas;
+                        if (tolvas[index].tryAcquire()){
+                            kilosPorTolvas[index] += camiones.peso;
+
+                            new Thread(new Camiones(camiones.id, camiones.peso, tolvas[index], index + 1, registrosLog)).start();
+                            asignado = true;
+                            break;
+                        }
+                       }
+                   /*sin indice
+                   while (!asignado){
+                       for (int i = 0; i < NumeroTolvas; i++){
+                           if (tolvas[i].tryAcquire()){
+                               kilosPorTolvas[i] += camiones.peso;
+
+                               new Thread(new Camiones(camiones.id, camiones.peso, tolvas[i], i + 1, registrosLog)).start();
+                               asignado = true;
+                               break;
+                           }
+                       }*/
+                       if (!asignado){
+                           Thread.sleep(100);
+                       }
+                   }
+               }catch (InterruptedException e){
+                   Thread.currentThread().interrupt();
+                   break;
+
+               }
+           }
+        });
+
+        gestorCola.start();
+
+        for (int i = 0; i< 10; i++) {
+            int peso = (int) (Math.random() * 10000) +1;
+            try {
+                colaCamiones.put(new Camiones(i + 1, peso, null, -1, registrosLog));
+                registrosLog.log("Camion " + (i + 1) +" ha llegado a la cola para descargar el peso: " + peso + "kg.");
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            registrosLog.log("Resumen de descarga por tolvas: ");
+            int totalKilos = 0;
+            for (int  i = 0; i < NumeroTolvas; i++){
+
+                registrosLog.log("Total en Tolva " + (i+1) + ": " + kilosPorTolvas[i] + " kg");
+                totalKilos += kilosPorTolvas[i];
+            }
+            registrosLog.log("Total de kilos descargados= " + totalKilos + "kg.");
+
+
+
+    }
+}
+
+
+
+
+CLASE NUEVA REGISTROSLOG
+
+
+
+public class RegistrosLog {
+
+    private final StringBuilder log = new StringBuilder();
+
+    public synchronized void log (String mensaje){
+        log.append(mensaje).append("\n");
+        System.out.println(mensaje);
+    }
+
+    public synchronized String getLog(){
+        return log.toString();
+    }
+}
+
+
+CLASE NUEVA CAMIONES
+
+
+import java.util.concurrent.Semaphore;
+
+public class Camiones implements Runnable {
+
+    final int id;
+    final int peso;
+    private final Semaphore semaforo;
+    private final int tovaId;
+    private final RegistrosLog registrosLog;
+
+    public Camiones(int id, int peso, Semaphore semaforo, int tovaId, RegistrosLog registrosLog) {
+        this.id = id;
+        this.peso = peso;
+        this.semaforo = semaforo;
+        this.tovaId = tovaId;
+        this.registrosLog = registrosLog;
+    }
+
+
+    @Override
+    public void run() {
+
+        try {
+            registrosLog.log("Camión " + id + " está descargando la carga " + peso + " kg en " + "Tolva" + tovaId);
+
+
+            Thread.sleep(peso/10);
+            //registrosLog.log("Camión " + id + " ha terminado de descargar en tolva " + tovaId);
+        }catch (InterruptedException e ){
+            Thread.currentThread().interrupt();
+        }finally {
+            semaforo.release();
+        }
+    }
+}
+
+
+
+

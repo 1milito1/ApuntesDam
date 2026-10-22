@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DispositivosTecnologicos>
+    <Categoria nombre="Portátiles">
+        <Dispositivo id="LAP-001">
+            <Nombre>UltraBook Pro</Nombre>
+            <Marca>TechCorp</Marca>
+            <Modelo>TB-P14</Modelo>
+            <Precio moneda="USD">1200.50</Precio>
+            <Especificaciones>
+                <Componente tipo="CPU">
+                    <NombreComponente>Intel Core i7</NombreComponente>
+                    <Detalle>11ª Generación</Detalle>
+                </Componente>
+                <Componente tipo="RAM">
+                    <NombreComponente>DDR4</NombreComponente>
+                    <Detalle>16GB</Detalle>
+                </Componente>
+                <Componente tipo="Almacenamiento">
+                    <NombreComponente>SSD NVMe</NombreComponente>
+                    <Detalle>1TB</Detalle>
+                </Componente>
+                <SistemaOperativo>Windows 11 Pro</SistemaOperativo>
+                <Conectividad standard="Wi-Fi 6">
+                    <Puerto tipo="USB-C">2</Puerto>
+                    <Puerto tipo="USB-A">1</Puerto>
+                    <Puerto tipo="HDMI">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+        <Dispositivo id="LAP-002">
+            <Nombre>Gaming Beast</Nombre>
+            <Marca>GameTech</Marca>
+            <Modelo>GB-X15</Modelo>
+            <Precio moneda="EUR">1850.00</Precio>
+            <Especificaciones>
+                <Componente tipo="CPU">
+                    <NombreComponente>AMD Ryzen 9</NombreComponente>
+                    <Detalle>5ª Generación</Detalle>
+                </Componente>
+                 <Componente tipo="GPU">
+                    <NombreComponente>NVIDIA RTX 3070</NombreComponente>
+                    <Detalle>8GB GDDR6</Detalle>
+                </Componente>
+                <Componente tipo="RAM">
+                    <NombreComponente>DDR4</NombreComponente>
+                    <Detalle>32GB</Detalle>
+                </Componente>
+                <Componente tipo="Almacenamiento">
+                    <NombreComponente>SSD NVMe</NombreComponente>
+                    <Detalle>2TB</Detalle>
+                </Componente>
+                <SistemaOperativo>Windows 11 Home</SistemaOperativo>
+                 <Conectividad standard="Wi-Fi 6E">
+                    <Puerto tipo="USB-C">1</Puerto>
+                    <Puerto tipo="USB-A">3</Puerto>
+                    <Puerto tipo="HDMI">1</Puerto>
+                    <Puerto tipo="Ethernet">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+         <Dispositivo id="LAP-003">
+            <Nombre>Chromebook Lite</Nombre>
+            <Marca>StudentGear</Marca>
+            <Modelo>CB-11A</Modelo>
+            <Precio moneda="USD">299.99</Precio>
+            <Especificaciones>
+                <Componente tipo="CPU">
+                    <NombreComponente>MediaTek Kompanio</NombreComponente>
+                    <Detalle>500 Series</Detalle>
+                </Componente>
+                <Componente tipo="RAM">
+                    <NombreComponente>LPDDR4X</NombreComponente>
+                    <Detalle>4GB</Detalle>
+                </Componente>
+                <Componente tipo="Almacenamiento">
+                    <NombreComponente>eMMC</NombreComponente>
+                    <Detalle>64GB</Detalle>
+                </Componente>
+                <SistemaOperativo>ChromeOS</SistemaOperativo>
+                 <Conectividad standard="Wi-Fi 5">
+                    <Puerto tipo="USB-C">2</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+         <Dispositivo id="LAP-004">
+            <Nombre>Convertible 2-in-1</Nombre>
+            <Marca>VersaTech</Marca>
+            <Modelo>CVT-13T</Modelo>
+            <Precio moneda="USD">750.00</Precio>
+            <Especificaciones>
+                <Componente tipo="CPU">
+                    <NombreComponente>Intel Core i5</NombreComponente>
+                    <Detalle>12ª Generación</Detalle>
+                </Componente>
+                <Componente tipo="RAM">
+                    <NombreComponente>DDR4</NombreComponente>
+                    <Detalle>8GB</Detalle>
+                </Componente>
+                <Componente tipo="Almacenamiento">
+                    <NombreComponente>SSD</NombreComponente>
+                    <Detalle>512GB</Detalle>
+                </Componente>
+                <SistemaOperativo>Windows 11 Home</SistemaOperativo>
+                 <Conectividad standard="Wi-Fi 6">
+                    <Puerto tipo="USB-C">1</Puerto>
+                    <Puerto tipo="USB-A">2</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+    </Categoria>
+    <Categoria nombre="Smartphones">
+         <Dispositivo id="SMART-001">
+            <Nombre>Galaxy Innovate</Nombre>
+            <Marca>MobileSolutions</Marca>
+            <Modelo>GI-S22</Modelo>
+            <Precio moneda="USD">899.99</Precio>
+            <Especificaciones>
+                <Componente tipo="Procesador">
+                    <NombreComponente>Snapdragon 8 Gen 1</NombreComponente>
+                    <Detalle>Octa-core</Detalle>
+                </Componente>
+                 <Componente tipo="Pantalla">
+                    <NombreComponente>AMOLED</NombreComponente>
+                    <Detalle>6.5 pulgadas, 120Hz</Detalle>
+                </Componente>
+                 <Componente tipo="Cámara Principal">
+                    <NombreComponente>Triple Lente</NombreComponente>
+                    <Detalle>50MP + 12MP + 10MP</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Li-Ion</NombreComponente>
+                    <Detalle>4500 mAh</Detalle>
+                </Componente>
+                <SistemaOperativo>Android 13</SistemaOperativo>
+                 <Conectividad standard="5G">
+                    <Puerto tipo="USB-C">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+         <Dispositivo id="SMART-002">
+            <Nombre>Compact Mini</Nombre>
+            <Marca>TinyTech</Marca>
+            <Modelo>TM-C1</Modelo>
+            <Precio moneda="EUR">650.00</Precio>
+            <Especificaciones>
+                <Componente tipo="Procesador">
+                    <NombreComponente>A15 Bionic</NombreComponente>
+                    <Detalle>Hexa-core</Detalle>
+                </Componente>
+                 <Componente tipo="Pantalla">
+                    <NombreComponente>OLED</NombreComponente>
+                    <Detalle>5.4 pulgadas</Detalle>
+                </Componente>
+                 <Componente tipo="Cámara Principal">
+                    <NombreComponente>Doble Lente</NombreComponente>
+                    <Detalle>12MP + 12MP</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Li-Ion</NombreComponente>
+                    <Detalle>2438 mAh</Detalle>
+                </Componente>
+                <SistemaOperativo>iOS 16</SistemaOperativo>
+                 <Conectividad standard="5G">
+                    <Puerto tipo="Lightning">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+         <Dispositivo id="SMART-003">
+            <Nombre>Value Phone</Nombre>
+            <Marca>BudgetMobile</Marca>
+            <Modelo>BM-V3</Modelo>
+            <Precio moneda="EUR">180.00</Precio>
+            <Especificaciones>
+                <Componente tipo="Procesador">
+                    <NombreComponente>MediaTek Helio G85</NombreComponente>
+                    <Detalle>Octa-core</Detalle>
+                </Componente>
+                 <Componente tipo="Pantalla">
+                    <NombreComponente>IPS LCD</NombreComponente>
+                    <Detalle>6.7 pulgadas</Detalle>
+                </Componente>
+                 <Componente tipo="Cámara Principal">
+                    <NombreComponente>Triple Lente</NombreComponente>
+                    <Detalle>48MP + 2MP + 2MP</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Li-Po</NombreComponente>
+                    <Detalle>5000 mAh</Detalle>
+                </Componente>
+                <SistemaOperativo>Android 12 Go Edition</SistemaOperativo>
+                 <Conectividad standard="4G LTE">
+                    <Puerto tipo="USB-C">1</Puerto>
+                    <Puerto tipo="Audio Jack 3.5mm">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+    </Categoria>
+     <Categoria nombre="Tablets">
+        <Dispositivo id="TABLET-001">
+            <Nombre>Tab Standard</Nombre>
+            <Marca>PadTech</Marca>
+            <Modelo>PT-S10</Modelo>
+            <Precio moneda="USD">350.00</Precio>
+            <Especificaciones>
+                <Componente tipo="Procesador">
+                    <NombreComponente>Snapdragon 680</NombreComponente>
+                    <Detalle>Octa-core</Detalle>
+                </Componente>
+                <Componente tipo="Pantalla">
+                    <NombreComponente>IPS LCD</NombreComponente>
+                    <Detalle>10.4 pulgadas</Detalle>
+                </Componente>
+                 <Componente tipo="Almacenamiento">
+                    <NombreComponente>eMMC</NombreComponente>
+                    <Detalle>128GB</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Li-Po</NombreComponente>
+                    <Detalle>7040 mAh</Detalle>
+                </Componente>
+                <SistemaOperativo>Android 13</SistemaOperativo>
+                <Conectividad standard="Wi-Fi 5">
+                    <Puerto tipo="USB-C">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+        <Dispositivo id="TABLET-002">
+            <Nombre>Tab Pro</Nombre>
+            <Marca>CreativeSlate</Marca>
+            <Modelo>CS-P12</Modelo>
+            <Precio moneda="USD">999.00</Precio>
+            <Especificaciones>
+                <Componente tipo="Procesador">
+                    <NombreComponente>M2 Chip</NombreComponente>
+                    <Detalle>Octa-core CPU, 10-core GPU</Detalle>
+                </Componente>
+                <Componente tipo="Pantalla">
+                    <NombreComponente>Liquid Retina XDR</NombreComponente>
+                    <Detalle>12.9 pulgadas, 120Hz ProMotion</Detalle>
+                </Componente>
+                 <Componente tipo="Almacenamiento">
+                    <NombreComponente>SSD</NombreComponente>
+                    <Detalle>256GB</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Li-Po</NombreComponente>
+                    <Detalle>10758 mAh</Detalle>
+                </Componente>
+                <SistemaOperativo>iPadOS 16</SistemaOperativo>
+                <Conectividad standard="Wi-Fi 6E">
+                    <Puerto tipo="Thunderbolt/USB 4">1</Puerto>
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+    </Categoria>
+     <Categoria nombre="Auriculares Inalámbricos">
+        <Dispositivo id="AUDIO-001">
+            <Nombre>SoundPods Pro</Nombre>
+            <Marca>PureAudio</Marca>
+            <Modelo>PA-SP2</Modelo>
+            <Precio moneda="USD">199.00</Precio>
+            <Especificaciones>
+                <Componente tipo="Tipo Auricular">
+                    <NombreComponente>In-Ear</NombreComponente>
+                    <Detalle>Cancelación de Ruido Activa</Detalle>
+                </Componente>
+                <Componente tipo="Conectividad">
+                    <NombreComponente>Bluetooth</NombreComponente>
+                    <Detalle>Versión 5.2</Detalle>
+                </Componente>
+                 <Componente tipo="Batería">
+                    <NombreComponente>Estuche de Carga</NombreComponente>
+                    <Detalle>Hasta 24 horas</Detalle>
+                </Componente>
+                 <Componente tipo="Resistencia">
+                    <NombreComponente>Agua y Sudor</NombreComponente>
+                    <Detalle>Certificación IPX4</Detalle>
+                </Componente>
+                <Conectividad standard="Bluetooth 5.2">
+                    <!-- No hay puertos físicos relevantes para el usuario final en el dispositivo -->
+                </Conectividad>
+            </Especificaciones>
+        </Dispositivo>
+    </Categoria>
+</DispositivosTecnologicos>
